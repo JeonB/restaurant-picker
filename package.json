@@ -1,0 +1,23 @@
+{
+  "name": "restraunt-picker",
+  "version": "1.0.0",
+  "description": "restraunt random picker",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JeonB/restraunt-picker.git"
+  },
+  "author": "jeonb",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JeonB/restraunt-picker/issues"
+  },
+  "homepage": "https://github.com/JeonB/restraunt-picker#readme",
+  "devDependencies": {
+    "electron": "^29.0.1"
+  }
+}
