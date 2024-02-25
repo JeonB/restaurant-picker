@@ -4,7 +4,7 @@
   "description": "restraunt random picker",
   "main": "main.js",
   "scripts": {
-    "start": "electron .",
+    "start": "node index.js",
     "test": "npm test"
   },
   "repository": {
@@ -17,11 +17,11 @@
     "url": "https://github.com/JeonB/restraunt-picker/issues"
   },
   "homepage": "https://github.com/JeonB/restraunt-picker#readme",
-  "type": "module",
   "devDependencies": {
     "electron": "^29.0.1"
   },
   "dependencies": {
-    "fastify": "^4.26.1"
+    "fastify": "^4.26.1",
+    "mongoose": "^8.2.0"
   }
 }
