@@ -15,7 +15,8 @@ try {
 }
 // Set a GET route "/"
 app.get("/", function (request, reply) {
-  reply.send("Our first route");
+  // reply.send("Our first route");
+  reply.send("./gpt/restraunt-picker.html");
 });
 // Get all users
 app.get("/api/users", async (request, reply) => {

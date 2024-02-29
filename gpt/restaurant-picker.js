@@ -1,7 +1,7 @@
 // main.js
 const fs = require("fs");
-const { dialog } = require("electron").remote;
-
+// const { dialog } = require("electron").remote;
+// import fs from "fs";
 const categorySelect = document.getElementById("category");
 const addRestaurantBtn = document.getElementById("addRestaurantBtn");
 const restaurantsList = document.getElementById("restaurantsList");

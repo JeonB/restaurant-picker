@@ -1,5 +1,8 @@
 const { app, BrowserWindow } = require("electron");
+// import { app, BrowserWindow } from "electron";
+
 const path = require("path");
+// import path from "path";
 
 const createWindow = () => {
   const win = new BrowserWindow({
@@ -8,7 +11,7 @@ const createWindow = () => {
     webPreferences: { preload: path.join(__dirname, "preload.js") },
   });
 
-  win.loadFile("./copilot/restraunt-picker.html");
+  win.loadFile("./gpt/restaurant-picker.html");
 };
 
 app.whenReady().then(() => {
