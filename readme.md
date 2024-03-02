@@ -10,16 +10,15 @@
 
    > 1. 식당은 회사 기준 250m 이내로 제한한다.
    >
-   > ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/a1300980-f5fa-4555-b409-dbf8d94fdb6d/e58144a7-e3df-4a80-aaeb-7acc678c2c50/Untitled.png)
+   > [![image.png](https://i.postimg.cc/269PCfsP/image.png)](https://postimg.cc/WFr97xbn))
    >
    > 1. 랜덤으로 나온 식당 중 마음에 안 들면 다시 랜덤 선택이 가능해야 한다. 이 때, 한 번 나온 식당은 제외한다. 리셋 기능도 있어야 한다.
    > 2. 카테고리별로 메뉴 선정이 가능해야한다. 예를 들어 일식,중식,한식,양식,분식 등의 카테고리에서 식당과 메뉴과 추천되어야 한다.
    > 3. 식당 리스트는 사용자가 직접 추가 및 삭제가 가능해야 한다.
    > 4. 방문한 식당은 리스트에 저장되어야 한다. 리스트에 저장된 식당 중 랜덤 선택에서 제외하는 기능도 있어야 한다.
 
-![copilot이 작성한 그림. 불완전하다](https://prod-files-secure.s3.us-west-2.amazonaws.com/a1300980-f5fa-4555-b409-dbf8d94fdb6d/dac96938-8041-4bc7-a5b1-49bdb040a92f/Untitled.png)
+[![image.png](https://i.postimg.cc/0yHW6CWw/image.png)](https://postimg.cc/DSLdH1Kv)
 
-copilot이 작성한 그림. 불완전하다
 
 1. **데이터 구조 설계**:
    mongodb, mongoose 사용
@@ -28,7 +27,7 @@ copilot이 작성한 그림. 불완전하다
 4. 바로 직전 추첨된 메뉴,일주일전 메뉴 등 사용자가 설정한 메뉴들을 제외가능하게 할 수 있음. 3. 반경 250m이내의 식당만 크롤링
 5. 인원수에 맞는 식당 추천. 예를 들어, 얌샘 김밥은 4인 이하만 가능
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/a1300980-f5fa-4555-b409-dbf8d94fdb6d/72b2e37f-ef00-4397-9322-fb0b848e9b2c/Untitled.png)
+[![image.png](https://i.postimg.cc/SNPCCt4k/image.png)](https://postimg.cc/WhMdP8tH)
 
 1. **사용자 인터페이스 설계**:
    UI는 PrimeReact를 활용하여 구현
