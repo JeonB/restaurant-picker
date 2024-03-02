@@ -5,6 +5,7 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
+    "dev": "ts-node --files ./src/index.ts",
     "test": "npm test"
   },
   "repository": {
@@ -18,12 +19,21 @@
   },
   "homepage": "https://github.com/JeonB/restraunt-picker#readme",
   "devDependencies": {
-    "@types/node": "^20.11.20",
+    "@types/bcrypt": "^5.0.2",
+    "@types/node": "^20.11.22",
+    "@types/react": "^18.2.61",
+    "@types/react-dom": "^18.2.19",
     "electron": "^29.0.1",
+    "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
   },
   "dependencies": {
+    "dotenv": "^16.4.5",
     "fastify": "^4.26.1",
-    "mongoose": "^8.2.0"
+    "fastify-plugin": "^4.5.1",
+    "mongoose": "^8.2.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.22.2"
   }
 }
