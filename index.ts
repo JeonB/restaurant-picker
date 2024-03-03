@@ -1,5 +1,3 @@
-// TODO: convert JS to TS
-
 // import fastify
 const fastify = require("fastify");
 // import mongoose
@@ -7,6 +5,7 @@ const mongoose = require("mongoose");
 const User = require("./User");
 const app = fastify();
 const mongoUrl = process.env.MONGODB_URI || "mongodb://localhost:27017/users";
+
 /** connect to MongoDB datastore */
 try {
   mongoose.connect(mongoUrl);

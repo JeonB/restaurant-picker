@@ -12,7 +12,7 @@ async function fetchData(page) {
     category_group_code: "FD6",
     x: "126.82597944995",
     y: "37.5676859104888",
-    radius: 250,
+    radius: 150,
     size: 15,
     page,
   });
@@ -39,14 +39,14 @@ async function handleData() {
     let data = await fetchData(page);
     let cnt = 1;
 
-    while (page < 50) {
+    do {
       data.documents.forEach((place) => {
         console.log(place.place_name);
         cnt++;
       });
       page++;
       data = await fetchData(page);
-    }
+    } while (data.meta.is_end && page < 4);
     console.log("음식점 수: " + cnt);
   } catch (error) {
     console.error("Error occurred:", error);
