@@ -1,58 +1,40 @@
 {
   "name": "restaurant-picker",
+  "workspaces": [
+    "packages/*"
+  ],
   "version": "1.0.0",
   "description": "restauraunt random picker",
   "main": "main.js",
   "scripts": {
-    "dev": "ts-node --files ./src/index.ts",
-    "start": "react-scripts start",
+    "start": "lerna run --parallel start",
     "test": "npm test"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/JeonB/restauraunt-picker.git"
   },
-  "author": "jeonb",
+  "author": "JeonB",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/JeonB/restauraunt-picker/issues"
   },
-  "homepage": ".",
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
     "@types/node": "^20.11.22",
-    "@types/react": "^18.2.61",
-    "@types/react-dom": "^18.2.19",
+    "@typescript-eslint/eslint-plugin": "^5.5.0",
+    "@typescript-eslint/parser": "^5.5.0",
     "electron": "^29.0.1",
+    "eslint": "^8.55.0",
+    "eslint-plugin-prettier": "^5.0.1",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "lerna": "^8.1.2",
     "prettier": "^3.2.5",
-    "react-scripts": "^5.0.1",
     "ts-node": "^10.9.2",
     "typescript": "^4.9.5"
   },
   "dependencies": {
-    "dotenv": "^16.4.5",
-    "fastify": "^4.26.1",
-    "fastify-plugin": "^4.5.1",
-    "mongoose": "^8.2.0",
-    "primeflex": "^3.3.1",
-    "primeicons": "^6.0.1",
-    "primereact": "^10.5.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^6.22.2",
-    "styled-components": "^6.1.8",
-    "web-vitals": "^3.5.2"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "dotenv": "^16.4.5"
   }
 }

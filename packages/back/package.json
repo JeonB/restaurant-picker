@@ -1,0 +1,21 @@
+{
+  "name": "back",
+  "version": "1.0.0",
+  "private": "true",
+  "description": "restaurant-picker back source",
+  "homepage": "./src",
+  "main": "index.ts",
+  "scripts": {
+    "start": "ts-node --files ./src/test.ts",
+    "dev": "ts-node --files ./src/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "fastify": "^4.26.1",
+    "fastify-plugin": "^4.5.1",
+    "mongoose": "^8.2.0"
+  },
+  "devDependencies": {},
+  "author": "JeonB",
+  "license": "ISC"
+}
