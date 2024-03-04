@@ -7,7 +7,7 @@
   "description": "restauraunt random picker",
   "main": "main.js",
   "scripts": {
-    "start": "lerna run --parallel start",
+    "start": "lerna run --stream start",
     "test": "npm test"
   },
   "repository": {
@@ -30,11 +30,11 @@
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "lerna": "^8.1.2",
-    "prettier": "^3.2.5",
-    "ts-node": "^10.9.2",
-    "typescript": "^4.9.5"
+    "prettier": "^3.2.5"
   },
   "dependencies": {
-    "dotenv": "^16.4.5"
+    "dotenv": "^16.4.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^4.9.5"
   }
 }

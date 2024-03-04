@@ -1,5 +1,5 @@
 // require('dotenv').config(); // dotenv 모듈을 사용하여 .env 파일의 환경 변수를 로드
-const restAPIkey = process.env.REACT_APP_KAKAO_RESTAPI_KEY;
+const restAPIkey = process.env.KAKAO_RESTAPI_KEY;
 const baseUrl = 'https://dapi.kakao.com/v2/local/search/keyword';
 
 // 전체 데이터를 저장할 배열

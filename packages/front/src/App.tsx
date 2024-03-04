@@ -10,20 +10,20 @@ const App: React.FC = () => {
   const [query, setQuery] = useState<string | null>(null);
 
   useEffect(() => {
-    fetchData(); // 컴포넌트가 마운트되었을 때 데이터를 가져옵니다.
+    fetchData();
   }, []);
 
   const fetchData = async () => {
     try {
-      const result = await processData('한식'); // 데이터를 가져옵니다.
-      setQuery(result !== undefined ? result : null); // 데이터를 상태에 설정합니다.
+      const result = await processData('한식');
+      setQuery(result !== undefined ? result : null);
     } catch (error) {
       console.error('Error occurred:', error);
     }
   };
 
   const handleClick = async () => {
-    fetchData(); // 버튼이 클릭될 때 데이터를 다시 가져옵니다.
+    fetchData();
   };
   return (
     <div className="text-center">
