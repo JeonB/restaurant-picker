@@ -24,6 +24,7 @@ export default fp(async (server: FastifyInstance) => {
       reply
         .code(200)
         .header('Content-type', 'application/json; charset=utf-8')
+        .header('Access-Control-Allow-Origin', '*')
         .send(restaurants);
     },
   );
@@ -41,6 +42,7 @@ export default fp(async (server: FastifyInstance) => {
       reply
         .code(200)
         .header('Content-type', 'application/json; charset=utf-8')
+        .header('Access-Control-Allow-Origin', '*')
         .send(restaurant);
     },
   );
