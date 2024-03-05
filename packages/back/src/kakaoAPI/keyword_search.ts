@@ -4,7 +4,7 @@ const baseUrl = 'https://dapi.kakao.com/v2/local/search/keyword';
 const restAPIkey = process.env.KAKAO_RESTAPI_KEY;
 
 // 전체 데이터를 저장할 배열
-let allData: { [key: string]: string }[] = [];
+let allData: { [key: string]: string | number }[] = [];
 
 // 페이지별로 요청 보내기
 async function fetchData(query: string, page: number) {
@@ -48,7 +48,7 @@ async function handleData(query: string) {
     // let cnt = 0;
 
     while (page < 4) {
-      data.documents.forEach((document: { [key: string]: string }) => {
+      data.documents.forEach((document: { [key: string]: string | number }) => {
         allData.push(document);
         // cnt++;
       });

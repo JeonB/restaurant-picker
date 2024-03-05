@@ -3,6 +3,7 @@ import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
 import { handleData } from '../../kakaoAPI/keyword_search';
 import { Restaurant } from './entity';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
+import { DeepPartial } from 'typeorm';
 
 export default fp(async (server: FastifyInstance) => {
   // 루트
@@ -55,10 +56,15 @@ export default fp(async (server: FastifyInstance) => {
       const restaurant = await handleData(keyword);
       try {
         restaurant.forEach(async item => {
-          const { place_name, category_name, distance, phone, place_url } =
-            item;
+          const {
+            place_name,
+            category_name,
+            distance,
+            phone,
+            place_url,
+          }: DeepPartial<Restaurant> = item;
           const isDuplicated = await server.db.restaurant.findOne({
-            where: { place_name },
+            where: { place_name: String(place_name) },
           });
 
           if (!isDuplicated) {

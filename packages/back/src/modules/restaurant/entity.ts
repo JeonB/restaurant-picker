@@ -17,8 +17,8 @@ export class Restaurant {
   @Column({ type: 'varchar', nullable: false })
   category_name: string;
 
-  @Column({ type: 'varchar', nullable: false })
-  distance: string;
+  @Column({ type: 'integer', nullable: false })
+  distance: number;
 
   @Column({ type: 'varchar', nullable: false })
   phone: string;
