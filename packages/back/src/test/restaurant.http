@@ -13,13 +13,13 @@ GET {{host}} HTTP/1.1
 GET {{host}}/restaurants HTTP/1.1
 
 ################################################ get restaurant
-GET {{host}}/restaurants/일품한우 HTTP/1.1
+GET {{host}}/restaurants/청가 HTTP/1.1
 
-################################################ update restaurant title
-PATCH {{host}}/restaurant/123 HTTP/1.1
+################################################ update restaurant 
+PATCH {{host}}/restaurants/공간 HTTP/1.1
   content-type: application/json
 
-  {"key": "value"}
+  {"distance": "100"}
 
 ################################################ delete restaurant
-DELETE {{host}}/restaurant/123 HTTP/1.1
+DELETE {{host}}/restaurants/공간 HTTP/1.1

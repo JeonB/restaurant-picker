@@ -64,4 +64,3 @@ async function handleData(query: string) {
   return allData;
 }
 export { fetchData, handleData };
-handleData('한식');
