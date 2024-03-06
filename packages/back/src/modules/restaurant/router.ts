@@ -3,7 +3,7 @@ import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
 import { handleData } from '../../kakaoAPI/keyword_search';
 import { Restaurant } from './entity';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
-import { DeepPartial } from 'typeorm';
+import { DeepPartial, ILike } from 'typeorm';
 
 export default fp(async (server: FastifyInstance) => {
   // 루트
@@ -31,14 +31,17 @@ export default fp(async (server: FastifyInstance) => {
 
   //키워드로 음식점 응답
   server.get(
-    '/restaurants/:place_name',
+    '/restaurants/:category_name',
     async (
-      request: FastifyRequest<{ Params: { place_name: string } }>,
+      request: FastifyRequest<{ Params: { category_name: string } }>,
       reply: FastifyReply,
     ) => {
-      const { place_name } = request.params;
-      const restaurant = await handleData(place_name);
-
+      const { category_name } = request.params;
+      const restaurant = await server.db.restaurant.find({
+        where: {
+          category_name: ILike(`%${category_name}%`),
+        },
+      });
       reply
         .code(200)
         .header('Content-type', 'application/json; charset=utf-8')
