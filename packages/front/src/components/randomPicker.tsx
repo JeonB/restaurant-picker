@@ -7,14 +7,12 @@ export const RandomPicker = () => {
   const [info, setInfo] = useState<string | null>(null);
   const [category, setCategory] = useState<string>('');
   useEffect(() => {
-    fetchData();
+    // fetchData(category);
   }, [category]);
 
-  const fetchData = async () => {
+  const fetchData = async (category: string) => {
     try {
       const result = await randomPick(category);
-      console.log(category);
-      console.log(result);
       setInfo(result !== undefined ? result : null);
     } catch (error) {
       console.error('Error occurred:', error);
@@ -22,7 +20,7 @@ export const RandomPicker = () => {
   };
 
   const handleClick = async () => {
-    fetchData();
+    fetchData(category);
   };
   const header = (
     <>
