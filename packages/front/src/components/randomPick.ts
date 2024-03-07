@@ -15,8 +15,10 @@ export default async function randomPick(category: string) {
       return;
     }
     const randomIndex = Math.floor(Math.random() * data.length); // 랜덤한 인덱스를 생성
-    const randomPlaceName = JSON.stringify(data[randomIndex]); // 랜덤한 인덱스의 place_name 값을 가져옴
-    // console.log(randomPlaceName);
+
+    const randomPlaceName = data[randomIndex];
+    randomPlaceName.distance += ' m';
+    console.log(randomPlaceName);
     return randomPlaceName;
   } catch (error) {
     console.error('Error occurred:', error);
