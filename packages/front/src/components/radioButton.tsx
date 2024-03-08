@@ -71,6 +71,18 @@ export default function GroupRadioButton({
             양식
           </label>
         </div>
+        <div className="flex align-items-center">
+          <RadioButton
+            inputId="category5"
+            name="category"
+            value="분식"
+            onChange={(e: RadioButtonChangeEvent) => setCategory(e.value)}
+            checked={category === '분식'}
+          />
+          <label htmlFor="category5" className="ml-2">
+            분식
+          </label>
+        </div>
       </div>
     </div>
   );

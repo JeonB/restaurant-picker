@@ -4,17 +4,9 @@ import { Button } from 'primereact/button';
 import randomPick from './randomPick';
 import GroupRadioButton from './radioButton';
 import FastfoodIcon from '@mui/icons-material/Fastfood';
+import { Restaurant as Rest } from '@mui/icons-material';
 import RestaurantInfo from './dataView';
-interface Restaurant {
-  id: number;
-  place_name: string;
-  category_name: string;
-  distance: string;
-  phone: string;
-  place_url: string;
-  created_at: string;
-  updated_at: string;
-}
+import { Restaurant } from '../types/Restaurant';
 
 export const RandomPicker = () => {
   const [info, setInfo] = useState<Restaurant[]>([]);
@@ -46,7 +38,7 @@ export const RandomPicker = () => {
     <>
       <Button
         label="Random Pick"
-        icon={<FastfoodIcon />}
+        icon={<Rest />}
         onClick={handleClick}
         style={{ gap: '13px' }}
       />
