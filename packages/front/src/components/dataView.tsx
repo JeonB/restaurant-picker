@@ -20,20 +20,27 @@ export default function RestaurantInfo({
 }) {
   return (
     <div className="card" style={{ display: 'flex', justifyContent: 'center' }}>
-      <DataTable value={info} style={{ width: 360 }}>
-        {/* <Column
-          field="place_name"
-          header="PlaceName"
-          style={{ width: 10 }}></Column> */}
-        {/* <Column
-          field="category_name"
-          header="CategoryName"
-          style={{ width: 10, alignContent: 'center' }}></Column> */}
+      <DataTable value={info} style={{ width: 560 }}>
+        <Column
+          field="place_url"
+          header="Place-URL"
+          style={{
+            padding: '0.5rem',
+          }}
+          alignHeader={'center'}
+          bodyStyle={{ textAlign: 'center' }}
+          body={rowData => (
+            <a
+              href={rowData.place_url}
+              target="_blank"
+              rel="noopener noreferrer">
+              {rowData.place_url}
+            </a>
+          )}></Column>
         <Column
           field="distance"
           header="Distance(meter)"
           style={{
-            width: 10,
             padding: '0.5rem',
           }}
           alignHeader={'center'}
@@ -41,6 +48,9 @@ export default function RestaurantInfo({
         <Column
           field="phone"
           header="Phone"
+          style={{
+            padding: '0.5rem',
+          }}
           alignHeader={'center'}
           bodyStyle={{ textAlign: 'center' }}></Column>
       </DataTable>

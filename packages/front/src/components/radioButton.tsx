@@ -13,6 +13,18 @@ export default function GroupRadioButton({
       <div className="flex flex-wrap gap-3">
         <div className="flex align-items-center">
           <RadioButton
+            inputId="category0"
+            name="category"
+            value="올랜덤"
+            onChange={(e: RadioButtonChangeEvent) => setCategory('')}
+            checked={category === ''}
+          />
+          <label htmlFor="category0" className="ml-2">
+            올랜덤
+          </label>
+        </div>
+        <div className="flex align-items-center">
+          <RadioButton
             inputId="category1"
             name="category"
             value="한식"

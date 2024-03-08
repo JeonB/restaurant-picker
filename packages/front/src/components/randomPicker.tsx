@@ -9,7 +9,7 @@ interface Restaurant {
   id: number;
   place_name: string;
   category_name: string;
-  distance: number;
+  distance: string;
   phone: string;
   place_url: string;
   created_at: string;
@@ -21,13 +21,12 @@ export const RandomPicker = () => {
   const [category, setCategory] = useState<string>('');
   useEffect(() => {
     // fetchData(category);
-    console.log('외않되' + JSON.stringify(info));
+    // console.log('데이터 확인: ' + JSON.stringify(info));
   }, [category, info]);
 
   const fetchData = async (category: string) => {
     try {
       const result = await randomPick(category);
-      console.log('테스트:' + JSON.stringify(result));
       setInfo(result !== undefined ? [result] : []);
     } catch (error) {
       console.error('Error occurred:', error);
@@ -39,10 +38,7 @@ export const RandomPicker = () => {
   };
   const header = (
     <>
-      <img
-        alt="Card"
-        src="https://primefaces.org/cdn/primereact/images/usercard.png"
-      />
+      <img alt="Card" src="https://i.postimg.cc/rpJGytmg/image.png" />
       <GroupRadioButton category={category} setCategory={setCategory} />
     </>
   );
@@ -54,7 +50,6 @@ export const RandomPicker = () => {
         onClick={handleClick}
         style={{ gap: '13px' }}
       />
-      {/* <Button label="Cancel" severity="secondary" icon="pi pi-times" style={{ marginLeft: '0.5em' }} /> */}
     </>
   );
 
@@ -65,9 +60,8 @@ export const RandomPicker = () => {
         subTitle={info.length > 0 ? info[0].category_name : 'No Data'}
         footer={footer}
         header={header}
-        style={{ width: 600, alignItems: 'center' }}>
+        style={{ width: 650, alignItems: 'center' }}>
         <RestaurantInfo info={info} />
-        {/* <p className="m-0">{info}</p> */}
       </Card>
     </div>
   );
