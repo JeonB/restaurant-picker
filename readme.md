@@ -1,4 +1,4 @@
-[![image.png](https://i.postimg.cc/BnSrpkyv/image.png)](https://postimg.cc/HVNvsZTG)
+[![image.png](https://i.postimg.cc/TYL069Dc/image.png)](https://postimg.cc/mt4C37Vc)
 
 1. **요구 사항 분석**:
 
@@ -8,7 +8,7 @@
 
 2. **기능 명세**:
 
-   > [![image.png](https://i.postimg.cc/HsZzGNnn/image.png)](https://postimg.cc/MvBVVdyJ)
+   > [![image.png](https://i.postimg.cc/nrtFhTLQ/image.png)](https://postimg.cc/FdD5Py39)
    >
    > 1. 식당은 회사 기준 250m 이내로 제한한다.
    > 2. 랜덤으로 나온 식당 중 마음에 안 들면 다시 랜덤 선택이 가능해야 한다. 이 때, 한 번 나온 식당은 제외한다. 리셋 기능도 있어야 한다.
