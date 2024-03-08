@@ -34,15 +34,11 @@
 
 6. **프로그램 구현**:
 
-   > 1. 기술 스택
-   >    FrontEnd
-   >
-   > - ReactJS, PrimeReact, Typescript
-   >
-   >   BackEnd
-   >
-   > - Node.js, Fastify, PostgreSQl, TypeORM, Typescript
-   >
+   > 1. 기술 스택 <br>
+   > **FrontEnd**
+   > - ReactJS, PrimeReact, Typescript <br>
+   > **BackEnd**
+   > - Node.js, Fastify, PostgreSQl, TypeORM, Typescript <br>
    > 2. 기능 구현
 
 7. **테스트 및 디버깅**: 구현한 프로그램을 테스트하여 버그를 찾고 수정. 이를 통해 프로그램의 안정성과 신뢰성을 확인.
