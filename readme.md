@@ -1,4 +1,4 @@
-[![image.png](https://i.postimg.cc/0yHW6CWw/image.png)](https://postimg.cc/DSLdH1Kv)
+[![image.png](https://i.postimg.cc/BnSrpkyv/image.png)](https://postimg.cc/HVNvsZTG)
 
 1. **요구 사항 분석**:
 
@@ -8,7 +8,7 @@
 
 2. **기능 명세**:
 
-   > [![image.png](https://i.postimg.cc/269PCfsP/image.png)](https://postimg.cc/WFr97xbn))
+   > [![image.png](https://i.postimg.cc/HsZzGNnn/image.png)](https://postimg.cc/MvBVVdyJ)
    >
    > 1. 식당은 회사 기준 250m 이내로 제한한다.
    > 2. 랜덤으로 나온 식당 중 마음에 안 들면 다시 랜덤 선택이 가능해야 한다. 이 때, 한 번 나온 식당은 제외한다. 리셋 기능도 있어야 한다.
@@ -17,7 +17,9 @@
    > 5. 방문한 식당은 리스트에 저장되어야 한다. 리스트에 저장된 식당 중 랜덤 선택에서 제외하는 기능도 있어야 한다.
 
 3. **데이터 구조 설계**:
-   mongodb, mongoose 사용
+
+   > 1. PostgreSQL , TypeORM 사용
+   > 2. 식당 entity 작성 - 식당명, 카테고리, 거리, 장소 URL, 전화번호 데이터를 Kakao API를 통해 추출 및 가공하여 DB에 저장
 
 4. **알고리즘 설계**:
 
@@ -28,7 +30,7 @@
 
 5. **사용자 인터페이스 설계**:
 
-   > UI는 PrimeReact를 활용하여 구현
+   > UI는 PrimeReact, MUI를 활용하여 구현
 
 6. **프로그램 구현**:
 
@@ -36,8 +38,10 @@
    >    FrontEnd
    >
    > - ReactJS, PrimeReact, Typescript
+   >
    >   BackEnd
-   > - Fastify, Node.js, MongoDB
+   >
+   > - Node.js, Fastify, PostgreSQl, TypeORM, Typescript
    >
    > 2. 기능 구현
 
