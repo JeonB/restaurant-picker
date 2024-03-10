@@ -4,7 +4,7 @@
   "private": "true",
   "description": "restaurant-picker front source",
   "main": "index.tsx",
-  "homepage": "./src",
+  "homepage": "https://jeonb.github.io/",
   "scripts": {
     "start": "cross-env NODE_ENV=local webpack serve --progress --color --hot --mode development",
     "start:dev": "cross-env NODE_ENV=development webpack serve --progress --color --hot --mode development",
