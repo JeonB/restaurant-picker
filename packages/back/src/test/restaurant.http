@@ -5,7 +5,7 @@ POST {{host}}/restaurants/분식 HTTP/1.1
   content-type: application/json
 
   {"key": "value"}
-
+  
 ################################################ get root
 GET {{host}} HTTP/1.1
 
