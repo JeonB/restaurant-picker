@@ -20,7 +20,6 @@ export default fp(async (server: FastifyInstance) => {
     '/restaurants',
     async (request: FastifyRequest, reply: FastifyReply) => {
       const restaurants = await server.db.restaurant.find();
-      console.log('test' + restaurants);
       reply
         .code(200)
         .header('Content-type', 'application/json; charset=utf-8')
