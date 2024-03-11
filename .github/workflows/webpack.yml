@@ -1,10 +1,12 @@
-name: Random Restaurant Recommendation Program
+name: MonoRepo CI
 
 on:
   push:
-    branches: [ "master" ]
+    branches:
+      - master
   pull_request:
-    branches: [ "master" ]
+    branches:
+      - master
 
 jobs:
   build:
@@ -15,14 +17,28 @@ jobs:
         node-version: [18.x]
 
     steps:
-    - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
 
-    - name: Build
-      run: |
-        npm install
-        npx webpack
+      # 프론트엔드 빌드 및 테스트
+      - name: Build and Test Frontend
+        run: |
+          cd packages/front
+          npm install
+          npm test
+          npm run build
+
+      # 백엔드 빌드 및 테스트
+      - name: Build and Test Backend
+        run: |
+          cd packages/back
+          npm install
+          npm test
+          npm run build
+
+      # 이후 추가적인 작업 수행 가능
