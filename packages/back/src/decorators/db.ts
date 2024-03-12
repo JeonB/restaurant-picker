@@ -19,15 +19,6 @@ export default fp(async fastify => {
     fastify.decorate('db', {
       restaurant: connectDB.getRepository(Restaurant),
     });
-
-    // fastify.addHook('onClose', async fastify => {
-    //   console.log('Running onClose hook...');
-
-    //   if (connectDB) {
-    //     await connectDB.destroy();
-    //   }
-    //   console.log('Running onClose hook complete');
-    // });
   } catch (error) {
     console.log(error);
   }
