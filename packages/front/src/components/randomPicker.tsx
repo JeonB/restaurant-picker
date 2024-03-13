@@ -3,7 +3,6 @@ import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
 import randomPick from './randomPick';
 import GroupRadioButton from './radioButton';
-import FastfoodIcon from '@mui/icons-material/Fastfood';
 import { Restaurant as Rest } from '@mui/icons-material';
 import RestaurantInfo from './dataView';
 import { Restaurant } from '../types/Restaurant';
