@@ -6,14 +6,13 @@ const restAPIkey = process.env.KAKAO_RESTAPI_KEY;
 // 전체 데이터를 저장할 배열
 let allData: { [key: string]: string | number }[] = [];
 
-// 페이지별로 요청 보내기
 async function fetchData(query: string, page: number) {
   const queryParams: { [key: string]: string | number } = {
     query,
-    x: '126.82597944995',
+    x: '126.82597944995', // 회사 좌표
     y: '37.5676859104888',
     category_group_code: 'FD6',
-    rect: '126.8250689717849,37.56713802152521,126.82796203861662,37.5691469858858',
+    rect: '126.8250689717849,37.56713802152521,126.82796203861662,37.5691469858858', // 마곡나루역 주변 4개블록 좌표
     size: 15,
     page,
   };
@@ -40,13 +39,13 @@ async function fetchData(query: string, page: number) {
   const data = await response.json();
   return data;
 }
-// fetchData 함수 호출 후 결과 처리
+
 async function handleData(query: string) {
   let page = 1;
   try {
     let data = await fetchData(query, page);
-    // let cnt = 0;
 
+    // Kakao Local API는 최대 3페이지까지(45개) 데이터 제공
     while (page < 4) {
       data.documents.forEach((document: { [key: string]: string | number }) => {
         allData.push(document);
@@ -56,8 +55,6 @@ async function handleData(query: string) {
       page++;
       data = await fetchData(query, page);
     }
-    // console.log('음식점 수: ' + cnt);
-    // console.log(allData);
   } catch (error) {
     console.error('에러 발생:', error);
   }
