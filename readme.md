@@ -77,6 +77,10 @@
 
    `docker run --name postgres -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=password123! -e POSTGRES_DB=test -d postgres:12.18-bullseye`
 
-3. docker-compose up 명령어로 한 개의 컨테이너로 실행가능합니다.(선택):
+3. 루트 디렉토리에서 패키지를 실행합니다:
+
+   `npm start`
+
+4. docker-compose up 명령어로 한 개의 컨테이너로 실행 가능합니다(선택):
 
    `docker-compose up -d`
