@@ -18,7 +18,6 @@ export default async function randomPick(category: string) {
 
     const randomPlaceName = data[randomIndex];
     randomPlaceName.distance += ' m';
-    // console.log(randomPlaceName);
     return randomPlaceName;
   } catch (error) {
     console.error('Error occurred:', error);

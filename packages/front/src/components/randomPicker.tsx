@@ -10,10 +10,8 @@ import { Restaurant } from '../types/Restaurant';
 export const RandomPicker = () => {
   const [info, setInfo] = useState<Restaurant[]>([]);
   const [category, setCategory] = useState<string>('');
-  useEffect(() => {
-    // fetchData(category);
-    // console.log('데이터 확인: ' + JSON.stringify(info));
-  }, [category, info]);
+
+  useEffect(() => {}, [category, info]);
 
   const fetchData = async (category: string) => {
     try {
@@ -27,12 +25,13 @@ export const RandomPicker = () => {
   const handleClick = async () => {
     fetchData(category);
   };
+
   const header = (
     <>
       <img
         alt="Card"
         src="https://i.postimg.cc/rpJGytmg/image.png"
-        style={{ width: '85%', height: 'auto' }} // 부모 요소의 너비의 50%
+        style={{ width: '85%', height: 'auto' }}
       />
       <GroupRadioButton category={category} setCategory={setCategory} />
     </>
@@ -51,7 +50,7 @@ export const RandomPicker = () => {
   return (
     <div className="card flex justify-content-center">
       <Card
-        title={info.length > 0 ? info[0].place_name : 'No Data'} // 음식점 데이터 들어가야됨
+        title={info.length > 0 ? info[0].place_name : 'No Data'}
         subTitle={info.length > 0 ? info[0].category_name : 'No Data'}
         footer={footer}
         header={header}
