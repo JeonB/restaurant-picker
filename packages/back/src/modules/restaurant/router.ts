@@ -67,6 +67,11 @@ export default fp(async (server: FastifyInstance) => {
             phone,
             place_url,
           }: DeepPartial<Restaurant> = item;
+          const trimmedCategoryName = String(category_name).replace(
+            '음식점 > ',
+            '',
+          );
+
           const isDuplicated = await server.db.restaurant.findOne({
             where: { place_name: String(place_name) },
           });
@@ -74,7 +79,7 @@ export default fp(async (server: FastifyInstance) => {
           if (!isDuplicated) {
             await server.db.restaurant.save({
               place_name,
-              category_name,
+              category_name: trimmedCategoryName,
               distance,
               phone,
               place_url,
