@@ -2,30 +2,38 @@ import React from 'react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Restaurant } from 'src/types/Restaurant';
+import { Button } from 'primereact/button';
+import { Fastfood } from '@mui/icons-material';
 
 export default function RestaurantInfo({
   info,
 }: {
   info: Restaurant[] | undefined;
 }) {
+  const handleIconClick = (rowData: Restaurant) => {
+    window.open(rowData.place_url, '_blank');
+  };
+
   return (
     <div className="card" style={{ display: 'flex', justifyContent: 'center' }}>
-      <DataTable value={info} style={{ width: 560 }}>
+      <DataTable value={info} style={{ width: '100%', height: 'auto' }}>
         <Column
           field="place_url"
-          header="Place-URL"
+          header="상세 정보"
           style={{
             padding: '0.5rem',
+            width: '30%',
+            height: 'auto',
           }}
           alignHeader={'center'}
           bodyStyle={{ textAlign: 'center' }}
           body={rowData => (
-            <a
-              href={rowData.place_url}
-              target="_blank"
-              rel="noopener noreferrer">
-              {rowData.place_url}
-            </a>
+            <Button
+              label="Details"
+              icon={<Fastfood />}
+              onClick={() => handleIconClick(rowData)}
+              style={{ gap: '13px' }}
+            />
           )}></Column>
         <Column
           field="distance"

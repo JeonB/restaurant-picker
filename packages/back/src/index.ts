@@ -18,6 +18,6 @@ server.register(user);
 server.register(db);
 server.register(auth);
 server.listen({
-  host: 'localhost',
+  host: '0.0.0.0', //외부에서 접속 가능
   port: 3000,
 });

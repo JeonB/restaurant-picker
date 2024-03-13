@@ -29,7 +29,11 @@ export const RandomPicker = () => {
   };
   const header = (
     <>
-      <img alt="Card" src="https://i.postimg.cc/rpJGytmg/image.png" />
+      <img
+        alt="Card"
+        src="https://i.postimg.cc/rpJGytmg/image.png"
+        style={{ width: '85%', height: 'auto' }} // 부모 요소의 너비의 50%
+      />
       <GroupRadioButton category={category} setCategory={setCategory} />
     </>
   );
@@ -51,7 +55,7 @@ export const RandomPicker = () => {
         subTitle={info.length > 0 ? info[0].category_name : 'No Data'}
         footer={footer}
         header={header}
-        style={{ width: 650, alignItems: 'center' }}>
+        style={{ width: 450, alignItems: 'center' }}>
         <RestaurantInfo info={info} />
       </Card>
     </div>

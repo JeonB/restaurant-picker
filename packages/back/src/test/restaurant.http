@@ -1,7 +1,7 @@
  @host = http://localhost:3000
 
 ################################################ create new restaurant with category
-POST {{host}}/restaurants/분식 HTTP/1.1
+POST {{host}}/restaurants/한식 HTTP/1.1
   content-type: application/json
 
   {"key": "value"}
@@ -13,7 +13,7 @@ GET {{host}} HTTP/1.1
 GET {{host}}/restaurants HTTP/1.1
 
 ################################################ get restaurant
-GET {{host}}/restaurants/청가 HTTP/1.1
+GET {{host}}/restaurants/한식 HTTP/1.1
 
 ################################################ update restaurant 
 PATCH {{host}}/restaurants/공간 HTTP/1.1
