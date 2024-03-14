@@ -1,6 +1,12 @@
- @host = http://localhost:3000
+@host = http://localhost:3000
 
 ################################################ create new restaurant with category
+POST {{host}}/restaurants HTTP/1.1
+  content-type: application/json
+
+  {"key": "value"}
+
+################################################ create new restaurant with keyword
 POST {{host}}/restaurants/한식 HTTP/1.1
   content-type: application/json
 

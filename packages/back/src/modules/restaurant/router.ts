@@ -95,6 +95,59 @@ export default fp(async (server: FastifyInstance) => {
     },
   );
 
+  // 음식점 한번에 추가
+  server.post(
+    '/restaurants',
+    async (request: FastifyRequest, reply: FastifyReply) => {
+      const categories = ['한식', '중식', '일식', '양식', '분식'];
+
+      try {
+        const existingRestaurants = await server.db.restaurant.find();
+        const existingPlaces = existingRestaurants.map(
+          restaurant => restaurant.place_name,
+        );
+
+        const newRestaurants = [];
+        for (const category of categories) {
+          const restaurant = await handleData(category);
+          for (const item of restaurant) {
+            const {
+              place_name,
+              category_name,
+              distance,
+              phone,
+              place_url,
+            }: DeepPartial<Restaurant> = item;
+            const trimmedCategoryName = String(category_name).replace(
+              '음식점 > ',
+              '',
+            );
+
+            if (!existingPlaces.includes(String(place_name))) {
+              newRestaurants.push({
+                place_name,
+                category_name: trimmedCategoryName,
+                distance,
+                phone,
+                place_url,
+              });
+              existingPlaces.push(String(place_name));
+            }
+          }
+        }
+
+        await server.db.restaurant.save(newRestaurants);
+
+        reply.code(201).send('데이터 저장 완료');
+      } catch (error) {
+        if (!reply.sent) {
+          reply.code(500).send('서버 에러');
+          console.error(error);
+        }
+      }
+    },
+  );
+
   // 음식점 수정
   server.patch(
     '/restaurants/:place_name',
