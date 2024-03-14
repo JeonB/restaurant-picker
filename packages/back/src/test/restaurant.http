@@ -7,7 +7,7 @@ POST {{host}}/restaurants HTTP/1.1
   {"key": "value"}
 
 ################################################ create new restaurant with keyword
-POST {{host}}/restaurants/공간 HTTP/1.1
+POST {{host}}/restaurants/한식 HTTP/1.1
   content-type: application/json
 
   {"key": "value"}

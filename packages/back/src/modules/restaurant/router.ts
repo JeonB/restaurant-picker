@@ -131,6 +131,7 @@ export default fp(async (server: FastifyInstance) => {
                 phone,
                 place_url,
               });
+              existingPlaces.push(String(place_name));
             }
           }
         }
@@ -141,6 +142,7 @@ export default fp(async (server: FastifyInstance) => {
       } catch (error) {
         if (!reply.sent) {
           reply.code(500).send('서버 에러');
+          console.error(error);
         }
       }
     },
