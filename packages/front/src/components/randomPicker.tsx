@@ -54,7 +54,7 @@ export const RandomPicker = () => {
         subTitle={info.length > 0 ? info[0].category_name : 'No Data'}
         footer={footer}
         header={header}
-        style={{ width: 450, alignItems: 'center' }}>
+        style={{ width: '500px', alignItems: 'center' }}>
         <RestaurantInfo info={info} />
       </Card>
     </div>
