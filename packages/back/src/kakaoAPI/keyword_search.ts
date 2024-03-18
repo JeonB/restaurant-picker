@@ -6,6 +6,7 @@ const restAPIkey = process.env.KAKAO_RESTAPI_KEY;
 // 전체 데이터를 저장할 배열
 let allData: { [key: string]: string | number }[] = [];
 
+// Kakao Local API를 호출하여 데이터를 가져오는 함수
 async function fetchData(query: string, page: number) {
   const queryParams: { [key: string]: string | number } = {
     query,
@@ -16,7 +17,7 @@ async function fetchData(query: string, page: number) {
     size: 15,
     page,
   };
-
+  
   const queryString = Object.keys(queryParams)
     .map(
       key =>
