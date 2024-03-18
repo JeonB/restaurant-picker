@@ -7,7 +7,7 @@
   "main": "index.ts",
   "scripts": {
     "start": "ts-node --files ./src/index.ts  | pino-pretty",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "build": "tsc"
   },
   "dependencies": {
@@ -21,7 +21,9 @@
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
+    "@types/jest": "^29.5.12",
     "@types/node": "^20.11.24",
+    "ts-jest": "^29.1.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
   },
