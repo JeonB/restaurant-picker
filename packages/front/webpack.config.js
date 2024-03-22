@@ -4,7 +4,7 @@ const webpack = require('webpack');
 
 const isLocal = process.env.NODE_ENV !== 'development';
 const host = isLocal ? 'localhost' : '192.168.10.100';
-
+const Dotenv = require('dotenv-webpack');
 module.exports = {
   output: {
     publicPath: `http://${host}:3002/`,
@@ -79,5 +79,6 @@ module.exports = {
       template: './public/index.html',
     }),
     new MiniCssExtractPlugin(),
+    new Dotenv(),
   ],
 };
