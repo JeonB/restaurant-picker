@@ -1,43 +1,40 @@
-import React, { useEffect } from 'react';
-declare global {
-  interface Window {
-    kakao: any;
-  }
-}
+import React, { useEffect, useState } from 'react';
+import { Map } from 'react-kakao-maps-sdk';
+
 export const MapComponent = () => {
+  const [myLoca, setMyLoca] = useState({
+    lat: 37.5676859104888,
+    lng: 126.82597944995,
+  }); // 현재위치 객체 값 설정
   useEffect(() => {
-    // 카카오맵 API 연동
-    const script = document.createElement('script');
-    script.async = true;
-    script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.KAKAO_MAP_KEY}&autoload=false&libraries=services,clusterer,drawing`;
-    document.head.appendChild(script);
-
-    script.onload = () => {
-      window.kakao.maps.load(() => {
-        const container = document.getElementById('kakao-map');
-
-        // 중심좌표(위도, 경도), 확대 정도 설정
-        const options = {
-          center: new window.kakao.maps.LatLng(
-            37.5676859104888,
-            126.82597944995,
-          ),
-          level: 3,
-        };
-
-        const map = new window.kakao.maps.Map(container, options);
-
-        // 지도 타입 컨트롤, 줌 컨트롤 추가
-        const mapTypeControl = new window.kakao.maps.MapTypeControl();
-        const zoomControl = new window.kakao.maps.ZoomControl();
-        map.addControl(
-          mapTypeControl,
-          window.kakao.maps.ControlPosition.TOPRIGHT,
-        );
-        map.addControl(zoomControl, window.kakao.maps.ControlPosition.RIGHT);
-      });
-    };
+    if (navigator.geolocation) {
+      // GeoLocation을 이용해서 접속 위치를 얻어온다
+      navigator.geolocation.getCurrentPosition(
+        position => {
+          setMyLoca({
+            lat: position.coords.latitude, // 위도
+            lng: position.coords.longitude, // 경도
+          });
+        },
+        err => {
+          alert('현재 위치를 표시할 수 없어요');
+        },
+        { enableHighAccuracy: true }, // 위치정보의 정확도를 높이는 옵션
+      );
+    } else {
+      // HTML5의 GeoLocation을 사용할 수 없을때
+      alert('현재 위치를 표시할 수 없어요');
+    }
   }, []);
 
-  return <div id="kakao-map" style={{ width: '100%', height: '400px' }} />;
+  return (
+    <Map
+      center={myLoca}
+      level={3}
+      style={{
+        width: '100%',
+        height: '100%',
+      }}
+    />
+  );
 };
