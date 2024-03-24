@@ -6,20 +6,10 @@ import 'primeflex/primeflex.css';
 import { RandomPicker } from './components/randomPicker';
 import { MapComponent } from './components/map';
 import CurrentPosition from './components/currentPosition';
+import useKakaoLoader from './useKakaoLoader';
 
 const App: React.FC = () => {
-  useEffect(() => {
-    const script = document.createElement('script');
-
-    script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.REACT_APP_KAKAO_MAP_KEY}&autoload=false&libraries=services,clusterer,drawing`;
-    script.async = true;
-
-    document.body.appendChild(script);
-
-    return () => {
-      document.body.removeChild(script);
-    };
-  }, []);
+  useKakaoLoader();
   return (
     <div className="text-center">
       <RandomPicker />
