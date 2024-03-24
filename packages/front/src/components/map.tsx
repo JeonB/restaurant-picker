@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Map } from 'react-kakao-maps-sdk';
+import { Map, MapMarker } from 'react-kakao-maps-sdk';
 
 export const MapComponent = () => {
   const [myLoca, setMyLoca] = useState({
@@ -34,7 +34,11 @@ export const MapComponent = () => {
       style={{
         width: '100%',
         height: '100%',
-      }}
-    />
+        position: 'absolute',
+      }}>
+      <MapMarker position={{ lat: myLoca.lat, lng: myLoca.lng }}>
+        <div style={{ color: '#000' }}>현 위치입니다!</div>
+      </MapMarker>
+    </Map>
   );
 };
