@@ -1,7 +1,7 @@
 {
   "name": "front",
   "version": "1.0.0",
-  "private": "true",
+  "private": true,
   "description": "restaurant-picker front source",
   "main": "index.tsx",
   "homepage": "https://jeonb.github.io/",

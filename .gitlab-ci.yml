@@ -1,0 +1,44 @@
+stages:
+  - build
+  - deploy
+
+default:
+  tags:
+    - master
+
+services:
+  - docker:19.03.13-dind
+
+build-job:
+  stage: build
+  tags:
+    - develop
+  script:
+    - echo "Compiling the code..."
+    - echo "build"
+    - docker build -t obp-workbench-web .
+  only:
+    - master
+
+deploy-job:
+  stage: deploy
+  tags:
+    - develop
+  script:
+    - echo "Start webpack ..."
+    - docker-compose -f ./app.yml up -d
+  only:
+    - master
+
+deploy-qa:
+  stage: deploy
+  script:
+    - echo "[QA]running build start"
+    - docker build -t qa-obp-workbench-web .
+    - echo "[QA] deploy start"
+    - docker-compose -f ./app-qa.yml up -d
+    - echo "[QA]deploy ended"
+  tags:
+    - qa
+  only:
+    - master-qa
