@@ -2,12 +2,13 @@
   "name": "restaurant-picker",
   "private": true,
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "apps/*"
   ],
   "version": "1.0.0",
   "description": "restauraunt random picker",
   "scripts": {
-    "start": "lerna run --stream start",
+    "start": "lerna run --parallel start",
     "test": "jest"
   },
   "repository": {
