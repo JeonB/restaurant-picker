@@ -1,7 +1,7 @@
 {
   "name": "back",
   "version": "1.0.0",
-  "private": "true",
+  "private": true,
   "description": "restaurant-picker back source",
   "homepage": "./src",
   "main": "index.ts",

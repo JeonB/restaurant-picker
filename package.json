@@ -1,5 +1,6 @@
 {
   "name": "restaurant-picker",
+  "private": true,
   "workspaces": [
     "packages/*"
   ],
