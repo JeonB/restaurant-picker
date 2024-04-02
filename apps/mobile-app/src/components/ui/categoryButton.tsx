@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { Filters } from "components/categoryFilter";
-import { StyleSheet } from "react-native";
+import React, { useState } from 'react';
+import { Filters } from 'components/ui/categoryFilter';
+import { StyleSheet } from 'react-native';
 
 interface CategoryButtonProps {
   category: string[];
@@ -21,12 +21,12 @@ export const CategoryButton = ({
   return (
     <Filters
       data={[
-        { label: "ALL", value: "" },
-        { label: "한식", value: "한식" },
-        { label: "일식", value: "일식" },
-        { label: "중식", value: "중식" },
-        { label: "양식", value: "양식" },
-        { label: "분식", value: "분식" },
+        { label: 'ALL', value: '' },
+        { label: '한식', value: '한식' },
+        { label: '일식', value: '일식' },
+        { label: '중식', value: '중식' },
+        { label: '양식', value: '양식' },
+        { label: '분식', value: '분식' },
       ]}
       onValueChange={handleCategoryChange}
     />
@@ -35,7 +35,7 @@ export const CategoryButton = ({
 
 const styles = StyleSheet.create({
   categoryButton: {
-    maxWidth: "80%",
-    alignItems: "center",
+    maxWidth: '80%',
+    alignItems: 'center',
   },
 });

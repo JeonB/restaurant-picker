@@ -11,9 +11,5 @@
     "strictPropertyInitialization": false,
     "skipLibCheck": true /* Skip type checking all .d.ts files. */
   },
-  "include": [
-    "packages/front/src",
-    "packages/back/src",
-    "packages/mobile-app/src"
-  ]
+  "include": ["packages/front/src", "packages/back/src", "apps/mobile-app/src"]
 }
