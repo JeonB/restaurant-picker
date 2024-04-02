@@ -1,6 +1,10 @@
-import React from "react";
-import { View, StyleSheet } from "react-native";
-import { RandomPicker } from "Main";
+import React from 'react';
+import { View, StyleSheet } from 'react-native';
+import { RandomPicker } from 'Main';
+import { Text } from 'react-native';
+// Text 적용
+(Text as any).defaultProps = (Text as any).defaultProps || {};
+(Text as any).defaultProps.allowFontScaling = false;
 
 const App: React.FC = () => {
   return (
@@ -13,8 +17,8 @@ const App: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 

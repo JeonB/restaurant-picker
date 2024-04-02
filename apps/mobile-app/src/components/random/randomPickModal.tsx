@@ -1,7 +1,7 @@
-import { Modal, View, StyleSheet } from "react-native";
-import { Button } from "react-native-paper";
-import { RandomItemSelect } from "components/randomItemSelect";
-import { Restaurant } from "types";
+import { Modal, View, StyleSheet } from 'react-native';
+import { Button } from 'react-native-paper';
+import { RandomItemSelect } from 'components/random/randomItemSelect';
+import { Restaurant } from 'types';
 
 interface RandomPickerModalProps {
   visible: boolean;
@@ -33,7 +33,7 @@ export const RandomPickerModal: React.FC<RandomPickerModalProps> = ({
 const styles = StyleSheet.create({
   modal: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

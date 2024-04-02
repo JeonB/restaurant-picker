@@ -16,7 +16,7 @@ build-job:
   script:
     - echo "Compiling the code..."
     - echo "build"
-    - docker build -t obp-workbench-web .
+    - docker build -t mobile-app .
   only:
     - master
 
@@ -34,7 +34,7 @@ deploy-qa:
   stage: deploy
   script:
     - echo "[QA]running build start"
-    - docker build -t qa-obp-workbench-web .
+    - docker build -t qa-mobile-app .
     - echo "[QA] deploy start"
     - docker-compose -f ./app-qa.yml up -d
     - echo "[QA]deploy ended"
