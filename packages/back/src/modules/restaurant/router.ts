@@ -66,6 +66,8 @@ export default fp(async (server: FastifyInstance) => {
             distance,
             phone,
             place_url,
+            x,
+            y,
           }: DeepPartial<Restaurant> = item;
           const trimmedCategoryName = String(category_name).replace(
             '음식점 > ',
@@ -83,6 +85,8 @@ export default fp(async (server: FastifyInstance) => {
               distance,
               phone,
               place_url,
+              x,
+              y,
             });
           }
         }),
@@ -117,6 +121,8 @@ export default fp(async (server: FastifyInstance) => {
               distance,
               phone,
               place_url,
+              x,
+              y,
             }: DeepPartial<Restaurant> = item;
             const trimmedCategoryName = String(category_name).replace(
               '음식점 > ',
@@ -130,6 +136,8 @@ export default fp(async (server: FastifyInstance) => {
                 distance,
                 phone,
                 place_url,
+                x,
+                y,
               });
               existingPlaces.push(String(place_name));
             }
