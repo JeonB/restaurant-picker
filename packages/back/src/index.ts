@@ -88,6 +88,6 @@ server.register(require('@fastify/swagger-ui'), {
   transformSpecificationClone: true,
 });
 server.listen({
-  host: '0.0.0.0', //외부에서 접속 가능
+  host: '192.168.10.100', //외부에서 접속 가능
   port: 3000,
 });
