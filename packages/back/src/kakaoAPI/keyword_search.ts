@@ -2,10 +2,10 @@ require('dotenv').config(); // dotenv 모듈을 사용하여 .env 파일의 환�
 
 const baseUrl = 'https://dapi.kakao.com/v2/local/search/keyword';
 const restAPIkey = process.env.KAKAO_RESTAPI_KEY;
-
 // 전체 데이터를 저장할 배열
 let allData: { [key: string]: string | number }[] = [];
 
+// Kakao Local API를 호출하여 데이터를 가져오는 함수
 async function fetchData(query: string, page: number) {
   const queryParams: { [key: string]: string | number } = {
     query,
@@ -31,7 +31,6 @@ async function fetchData(query: string, page: number) {
       Authorization: `KakaoAK ${restAPIkey}`,
     },
   });
-
   if (!response.ok) {
     throw new Error('Response 실패');
   }

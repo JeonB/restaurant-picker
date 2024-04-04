@@ -1,0 +1,31 @@
+stages:
+  - triggers
+
+trigger_back:
+  stage: triggers
+  trigger:
+    include: packages/back/.gitlab-ci.yml
+  only:
+    changes:
+      - 'packages/back/**/*'
+    refs:
+      - develop
+
+# trigger_mobile:
+#   stage: triggers
+#   trigger:
+#     include: apps/mobile-app/.gitlab-ci.yml
+#   only:
+#     changes:
+#       - 'apps/mobile-app/**/*'
+#     refs:
+#       - develop
+
+variables:
+  TYPEORM_USERNAME: '$TYPEORM_USERNAME'
+  TYPEORM_PASSWORD: '$TYPEORM_PASSWORD'
+  TYPEORM_DATABASE: '$TYPEORM_DATABASE'
+  TYPEORM_URL: '$TYPEORM_URL'
+  TYPEORM_ENTITIES: '$TYPEORM_ENTITIES'
+  KAKAO_RESTAPI_KEY: '$KAKAO_RESTAPI_KEY'
+  KAKAO_JAVASCRIPT_KEY: '$KAKAO_JAVASCRIPT_KEY'

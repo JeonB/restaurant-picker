@@ -1,8 +1,8 @@
 import { Server, IncomingMessage, ServerResponse } from 'http';
 import { Repository } from 'typeorm';
 
-import { Restaurant } from '../../modules/restaurant/entity';
-import { User } from '../../modules/user/entity';
+import { Restaurant } from '@_modules/restaurant/entity';
+import { User } from '@_modules/user/entity';
 
 interface Repositories {
   restaurant: Repository<Restaurant>;

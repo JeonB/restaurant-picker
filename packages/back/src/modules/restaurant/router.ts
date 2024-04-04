@@ -1,7 +1,7 @@
 import fp from 'fastify-plugin';
 import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
-import { handleData } from '../../kakaoAPI/keyword_search';
-import { Restaurant } from './entity';
+import { handleData } from '@_kakaoAPI/keyword_search';
+import { Restaurant } from '@_modules/restaurant/entity';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 import { DeepPartial, ILike } from 'typeorm';
 
@@ -66,7 +66,14 @@ export default fp(async (server: FastifyInstance) => {
             distance,
             phone,
             place_url,
+            x,
+            y,
           }: DeepPartial<Restaurant> = item;
+          const trimmedCategoryName = String(category_name).replace(
+            '음식점 > ',
+            '',
+          );
+
           const isDuplicated = await server.db.restaurant.findOne({
             where: { place_name: String(place_name) },
           });
@@ -74,10 +81,12 @@ export default fp(async (server: FastifyInstance) => {
           if (!isDuplicated) {
             await server.db.restaurant.save({
               place_name,
-              category_name,
+              category_name: trimmedCategoryName,
               distance,
               phone,
               place_url,
+              x,
+              y,
             });
           }
         }),
@@ -85,6 +94,63 @@ export default fp(async (server: FastifyInstance) => {
       } catch (error) {
         if (!reply.sent) {
           reply.code(500).send('서버 에러');
+        }
+      }
+    },
+  );
+
+  // 음식점 한번에 추가
+  server.post(
+    '/restaurants',
+    async (request: FastifyRequest, reply: FastifyReply) => {
+      const categories = ['한식', '중식', '일식', '양식', '분식'];
+
+      try {
+        const existingRestaurants = await server.db.restaurant.find();
+        const existingPlaces = existingRestaurants.map(
+          restaurant => restaurant.place_name,
+        );
+
+        const newRestaurants = [];
+        for (const category of categories) {
+          const restaurant = await handleData(category);
+          for (const item of restaurant) {
+            const {
+              place_name,
+              category_name,
+              distance,
+              phone,
+              place_url,
+              x,
+              y,
+            }: DeepPartial<Restaurant> = item;
+            const trimmedCategoryName = String(category_name).replace(
+              '음식점 > ',
+              '',
+            );
+
+            if (!existingPlaces.includes(String(place_name))) {
+              newRestaurants.push({
+                place_name,
+                category_name: trimmedCategoryName,
+                distance,
+                phone,
+                place_url,
+                x,
+                y,
+              });
+              existingPlaces.push(String(place_name));
+            }
+          }
+        }
+
+        await server.db.restaurant.save(newRestaurants);
+
+        reply.code(201).send('데이터 저장 완료');
+      } catch (error) {
+        if (!reply.sent) {
+          reply.code(500).send('서버 에러');
+          console.error(error);
         }
       }
     },

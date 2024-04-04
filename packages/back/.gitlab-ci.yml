@@ -1,0 +1,32 @@
+# .gitlab-ci.yml
+stages:
+  - build
+  - deploy
+
+default:
+  tags: # default tag for gitlab runner in verda stg env.
+    - develop
+
+# services:
+#   - docker:19.03.13-dind
+
+build-job:
+  stage: build
+  tags:
+    - develop
+  script:
+    - echo "Compiling the code..."
+    - echo "build"
+    - docker build -t back .
+  only:
+    - master
+
+deploy-job:
+  stage: deploy
+  tags:
+    - develop
+  script:
+    - echo "Start deploy ..."
+    - docker-compose -f ./app.yml up -d backend
+  only:
+    - master
