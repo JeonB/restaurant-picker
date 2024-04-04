@@ -9,7 +9,7 @@ trigger_back:
     changes:
       - 'packages/back/**/*'
     refs:
-      - develop
+      - master
 
 # trigger_mobile:
 #   stage: triggers
