@@ -27,6 +27,6 @@ deploy-job:
   script:
     - echo "Start deploy ..."
     - cd $CI_PROJECT_DIR/packages/back
-    - docker-compose -f ./app.yml up -d backend
+    - docker-compose -f ./app.yml up -d
   only:
     - master
