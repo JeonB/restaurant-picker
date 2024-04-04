@@ -16,7 +16,7 @@ build-job:
   script:
     - echo "Compiling the code..."
     - echo "build"
-    - docker build -t back .
+    - docker build -t back -f $CI_PROJECT_DIR/packages/back/Dockerfile .
   only:
     - master
 
@@ -26,6 +26,7 @@ deploy-job:
     - develop
   script:
     - echo "Start deploy ..."
+    - cd $CI_PROJECT_DIR/packages/back
     - docker-compose -f ./app.yml up -d backend
   only:
     - master
