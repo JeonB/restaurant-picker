@@ -1,5 +1,5 @@
 # Node.js 이미지를 사용합니다.
-FROM node:alpine AS backend
+FROM node:alpine AS back
 
 WORKDIR /app
 

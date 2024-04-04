@@ -4,9 +4,10 @@
     "baseUrl": ".",
     "paths": {
       "*": ["src/*"],
-      "tests": ["tests/*"],
-      "@components": ["src/components"],
-      "@projectTypes": ["src/types"]
+      "@_tests/*": ["src/tests/*"],
+      "@_components/*": ["src/components/*"],
+      "@_types/*": ["src/types/*"],
+      "@_services/*": ["src/services/*"]
     }
   }
 }

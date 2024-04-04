@@ -5,12 +5,13 @@ import fastify, {
 } from 'fastify';
 import { Server, IncomingMessage, ServerResponse } from 'http';
 
-import restaurant from './modules/restaurant/router';
-import user from './modules/user/router';
-import db from './decorators/db';
-import auth from './middlewares/auth';
+import restaurant from '@_modules/restaurant/router';
+import user from '@_modules/user/router';
+import db from '@_decorators/db';
+import auth from '@_middlewares/auth';
+import test from '@_modules/restaurant/test';
 import swagger from '@fastify/swagger';
-import test from './modules/restaurant/test';
+
 const server: FastifyInstance<Server, IncomingMessage, ServerResponse> =
   fastify({ logger: true });
 

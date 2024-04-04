@@ -9,15 +9,13 @@ import {
 } from 'react-native';
 import { Text } from '@rneui/themed';
 import { Button } from 'react-native-paper';
-import {
-  RestaurantInfo,
-  CategoryButton,
-  RandomPickerModal,
-  getData,
-} from '@components';
-import { Restaurant } from 'types';
+import { RestaurantInfo } from '@_components/ui/restaurantInfo';
+import { CategoryButton } from '@_components/ui/categoryButton';
+import { RandomPickerModal } from '@_components/random/randomPickModal';
+import { getData } from '@_services/api';
+import { Restaurant } from '@_types/Restaurant';
 
-export function RandomPicker() {
+export function Main() {
   const { width, height } = useWindowDimensions();
   const [info, setInfo] = useState<Restaurant[]>([]);
   const [category, setCategory] = useState<string[]>(['']);

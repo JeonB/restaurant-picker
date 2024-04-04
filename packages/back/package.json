@@ -6,7 +6,7 @@
   "homepage": "./src",
   "main": "index.ts",
   "scripts": {
-    "start": "ts-node --files ./src/index.ts  | pino-pretty",
+    "start": "ts-node -r tsconfig-paths/register --files ./src/index.ts  | pino-pretty",
     "test": "jest",
     "build": "tsc"
   },
@@ -27,6 +27,7 @@
     "@types/node": "^20.11.24",
     "ts-jest": "^29.1.2",
     "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.3.3"
   },
   "author": "JeonB",

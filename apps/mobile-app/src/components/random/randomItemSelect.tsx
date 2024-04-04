@@ -1,8 +1,8 @@
-import { Text } from "@rneui/themed";
-import React, { useEffect, useRef, useState } from "react";
-import { Animated, View, StyleSheet } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
-import { Restaurant } from "types";
+import { Text } from '@rneui/themed';
+import React, { useEffect, useRef, useState } from 'react';
+import { Animated, View, StyleSheet } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+import { Restaurant } from '@_types/Restaurant';
 interface Props {
   items: Restaurant[];
   onIndexChange: (index: number) => void;
@@ -17,7 +17,7 @@ function shuffleArray(array: any[]) {
   return array;
 }
 
-export const RandomItemSelect: React.FC<Props> = (props) => {
+export const RandomItemSelect: React.FC<Props> = props => {
   const { items: originalItems, onIndexChange, itemHeight } = props;
   const scrollY = useRef(new Animated.Value(0)).current;
 
@@ -29,7 +29,7 @@ export const RandomItemSelect: React.FC<Props> = (props) => {
 
   const items = React.useMemo(
     () => Array.from({ length: 3 }, () => shuffleArray(originalItems)).flat(),
-    [originalItems]
+    [originalItems],
   );
 
   const startAnimation = () => {
@@ -60,24 +60,22 @@ export const RandomItemSelect: React.FC<Props> = (props) => {
   }, [originalItems, itemHeight]);
 
   return (
-    <View style={{ height: itemHeight * 3, overflow: "hidden", width: "100%" }}>
+    <View style={{ height: itemHeight * 3, overflow: 'hidden', width: '100%' }}>
       <Animated.View
         style={{
           transform: [{ translateY: scrollY }],
           height: itemHeight * items.length,
-          justifyContent: "center",
+          justifyContent: 'center',
           paddingTop: itemHeight + itemHeight,
-        }}
-      >
+        }}>
         {items.map((item, index) => (
           <View
             key={index}
             style={{
               height: itemHeight,
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
             <Text style={styles.itemText}>{item.place_name}</Text>
           </View>
         ))}
@@ -85,12 +83,12 @@ export const RandomItemSelect: React.FC<Props> = (props) => {
       {/* border box */}
       <View
         style={{
-          position: "absolute",
+          position: 'absolute',
           top: itemHeight,
           left: 0,
           right: 0,
           height: itemHeight + 5,
-          borderColor: "black",
+          borderColor: 'black',
           borderWidth: 2,
           borderRadius: 5,
           marginLeft: 5,
@@ -100,9 +98,9 @@ export const RandomItemSelect: React.FC<Props> = (props) => {
       {/* 그라데이션 */}
       <LinearGradient
         colors={[
-          "rgba(255, 255, 255, 0.8)",
-          "rgba(255, 255, 255, 0)",
-          "rgba(255, 255, 255, 0.8)",
+          'rgba(255, 255, 255, 0.8)',
+          'rgba(255, 255, 255, 0)',
+          'rgba(255, 255, 255, 0.8)',
         ]}
         style={styles.gradient}
       />
@@ -113,11 +111,11 @@ export const RandomItemSelect: React.FC<Props> = (props) => {
 const styles = StyleSheet.create({
   itemText: {
     fontSize: 24,
-    justifyContent: "center",
+    justifyContent: 'center',
     paddingLeft: 15,
   },
   gradient: {
-    position: "absolute",
+    position: 'absolute',
     top: 0,
     left: 0,
     right: 0,

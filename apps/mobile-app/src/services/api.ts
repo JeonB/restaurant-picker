@@ -1,4 +1,4 @@
-import { Restaurant } from '@projectTypes';
+import { Restaurant } from '@_types/Restaurant';
 export async function getData(category: string) {
   const baseUrl = 'http://192.168.10.186:3000/restaurants';
   try {

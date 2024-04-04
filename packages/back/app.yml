@@ -2,14 +2,13 @@ version: '3'
 
 services:
   backend:
-    build:
-      context: .
+    image: backend
     ports:
       - '3000:3000'
     environment:
       - KAKAO_RESTAPI_KEY=${KAKAO_RESTAPI_KEY}
       - TYPEORM_URL=${TYPEORM_URL}
-      - TYPEORM_ENTITIES=${TYPEORM_ENTITIES}
+      - TZ=Asia/Seoul
     depends_on:
       - db
 

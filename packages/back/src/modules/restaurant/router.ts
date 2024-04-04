@@ -1,7 +1,7 @@
 import fp from 'fastify-plugin';
 import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
-import { handleData } from '../../kakaoAPI/keyword_search';
-import { Restaurant } from './entity';
+import { handleData } from '@_kakaoAPI/keyword_search';
+import { Restaurant } from '@_modules/restaurant/entity';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 import { DeepPartial, ILike } from 'typeorm';
 
