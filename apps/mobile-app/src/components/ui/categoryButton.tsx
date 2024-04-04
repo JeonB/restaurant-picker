@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Filters } from 'components/ui/categoryFilter';
+import { Filters } from '@_components/ui/categoryFilter';
 import { StyleSheet } from 'react-native';
 
 interface CategoryButtonProps {

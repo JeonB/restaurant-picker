@@ -1,7 +1,7 @@
 import fp from 'fastify-plugin';
 import { DataSource } from 'typeorm';
-import { Restaurant } from '../modules/restaurant/entity';
-import { User } from '../modules/user/entity';
+import { Restaurant } from '@_modules/restaurant/entity';
+import { User } from '@_modules/user/entity';
 
 export default fp(async fastify => {
   try {

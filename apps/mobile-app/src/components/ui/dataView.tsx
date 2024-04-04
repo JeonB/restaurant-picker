@@ -1,7 +1,7 @@
-import React from "react";
-import { Restaurant } from "types";
-import { DataTable, Icon } from "react-native-paper";
-import { StyleSheet } from "react-native";
+import React from 'react';
+import { Restaurant } from '@_types/Restaurant';
+import { DataTable, Icon } from 'react-native-paper';
+import { StyleSheet } from 'react-native';
 
 export function RestaurantInfo({ info }: { info: Restaurant | undefined }) {
   return (
@@ -39,8 +39,8 @@ export function RestaurantInfo({ info }: { info: Restaurant | undefined }) {
 
 const styles = StyleSheet.create({
   table: {
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     // maxWidth: "90%",
   },
 });

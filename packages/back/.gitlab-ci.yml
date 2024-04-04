@@ -1,17 +1,32 @@
 # .gitlab-ci.yml
-
 stages:
+  - build
   - deploy
 
-variables:
-  TYPEORM_USERNAME: '$TYPEORM_USERNAME'
-  TYPEORM_PASSWORD: '$TYPEORM_PASSWORD'
-  TYPEORM_DATABASE: '$TYPEORM_DATABASE'
-  KAKAO_RESTAPI_KEY: '$KAKAO_RESTAPI_KEY'
-  TYPEORM_URL: '$TYPEORM_URL'
-  TYPEORM_ENTITIES: '$TYPEORM_ENTITIES'
+default:
+  tags: # default tag for gitlab runner in verda stg env.
+    - develop
+services:
+  - docker:24.0.9-dind
 
-deploy:
-  stage: deploy
+build-job:
+  stage: build
+  tags:
+    - develop
   script:
+    - echo "Compiling the code..."
+    - echo "build"
+    - docker build -t back -f $CI_PROJECT_DIR/packages/back/Dockerfile .
+  only:
+    - master
+
+deploy-job:
+  stage: deploy
+  tags:
+    - develop
+  script:
+    - echo "Start deploy ..."
+    - cd $CI_PROJECT_DIR/packages/back
     - docker-compose -f ./app.yml up -d
+  only:
+    - master

@@ -6,7 +6,7 @@ import {
   FastifyPluginOptions,
 } from 'fastify';
 import bcrypt from 'bcrypt';
-//test
+
 export default fp(
   async (server: FastifyInstance, opts: FastifyPluginOptions) => {
     server.post(
@@ -48,9 +48,7 @@ export default fp(
           if (bcrypt.compareSync(password, user.password)) {
             const token = server.jwt.sign({ userId: user.id });
             reply.code(200).send({ token });
-          }
-          // password mismatch
-          else {
+          } else {
             reply.code(401).send('PASSWORD_MISMATCH');
           }
         } else {

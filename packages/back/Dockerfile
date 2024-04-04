@@ -1,15 +1,19 @@
-# Node.js 이미지를 사용합니다.
-FROM node:alpine AS backend
+FROM node:alpine AS back
 
+# 작업 디렉토리 설정
 WORKDIR /app
 
-COPY package.json ./
+# package.json 복사하여 종속성 설치
+COPY ./packages/back/package.json ./
+
+# 종속성 설치
 RUN npm install
 
+# 소스 코드 복사
 COPY . .
 
-RUN npm run build
-
+# 포트 노출
 EXPOSE 3000
 
-CMD ["npm", "start"]
+# 애플리케이션 시작 명령어
+CMD cd packages/back && npm start
