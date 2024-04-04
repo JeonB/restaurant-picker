@@ -16,7 +16,7 @@ services:
   db:
     image: postgres:12.18-bullseye
     ports:
-      - '5432:5432'
+      - '5434:5432' # 5432 포트가 이미 사용중이라 5434로 변경
     environment:
       - POSTGRES_USER=${TYPEORM_USERNAME}
       - POSTGRES_PASSWORD=${TYPEORM_PASSWORD}
