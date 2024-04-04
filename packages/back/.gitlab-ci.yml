@@ -1,0 +1,17 @@
+# .gitlab-ci.yml
+
+stages:
+  - deploy
+
+variables:
+  TYPEORM_USERNAME: '$TYPEORM_USERNAME'
+  TYPEORM_PASSWORD: '$TYPEORM_PASSWORD'
+  TYPEORM_DATABASE: '$TYPEORM_DATABASE'
+  KAKAO_RESTAPI_KEY: '$KAKAO_RESTAPI_KEY'
+  TYPEORM_URL: '$TYPEORM_URL'
+  TYPEORM_ENTITIES: '$TYPEORM_ENTITIES'
+
+deploy:
+  stage: deploy
+  script:
+    - docker-compose -f ./app.yml up -d
