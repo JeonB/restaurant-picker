@@ -6,9 +6,8 @@ stages:
 default:
   tags: # default tag for gitlab runner in verda stg env.
     - develop
-# test
-# services:
-#   - docker:19.03.13-dind
+services:
+  - docker:24.0.9-dind
 
 build-job:
   stage: build
