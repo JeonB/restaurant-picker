@@ -1,44 +1,22 @@
 stages:
-  - build
-  - deploy
+  - triggers
 
-default:
-  tags:
-    - master
-
-services:
-  - docker:19.03.13-dind
-
-build-job:
-  stage: build
-  tags:
-    - develop
-  script:
-    - echo "Compiling the code..."
-    - echo "build"
-    - docker build -t mobile-app .
+trigger_back:
+  stage: triggers
+  trigger:
+    include: packages/back/.gitlab-ci.yml
   only:
-    - master
+    changes:
+      - 'packages/back/**/*'
+    refs:
+      - develop
 
-deploy-job:
-  stage: deploy
-  tags:
-    - develop
-  script:
-    - echo "Start webpack ..."
-    - docker-compose -f ./app.yml up -d
+trigger_mobile:
+  stage: triggers
+  trigger:
+    include: apps/mobile-app/.gitlab-ci.yml
   only:
-    - master
-
-deploy-qa:
-  stage: deploy
-  script:
-    - echo "[QA]running build start"
-    - docker build -t qa-mobile-app .
-    - echo "[QA] deploy start"
-    - docker-compose -f ./app-qa.yml up -d
-    - echo "[QA]deploy ended"
-  tags:
-    - qa
-  only:
-    - master-qa
+    changes:
+      - 'apps/mobile-app/**/*'
+    refs:
+      - develop
