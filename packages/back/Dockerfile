@@ -16,4 +16,4 @@ COPY . .
 EXPOSE 3000
 
 # 애플리케이션 시작 명령어
-CMD ["npm", "start"]
+CMD cd packages/back && npm start
