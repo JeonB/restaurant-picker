@@ -76,7 +76,7 @@ server.register(require('@fastify/swagger-ui'), {
       next();
     },
   },
-  staticCSP: true,
+  staticCSP: false,
   transformStaticCSP: (header: any) => header,
   transformSpecification: (
     swaggerObject: any,

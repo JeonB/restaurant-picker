@@ -3,16 +3,21 @@ import { Restaurant } from '@_types/Restaurant';
 import { DataTable, Icon } from 'react-native-paper';
 import { StyleSheet } from 'react-native';
 
-export function RestaurantInfo({ info }: { info: Restaurant | undefined }) {
+export default function RestaurantInfo({
+  info,
+}: {
+  info: Restaurant | undefined;
+}) {
   return (
     <DataTable style={{ padding: 5 }}>
       <DataTable.Header>
         {/* <DataTable.Title>상세 정보</DataTable.Title> */}
         <DataTable.Title style={styles.table}>
-          <Icon source="run" size={20} /> 거리
+          <Icon source="run" />
+          거리
         </DataTable.Title>
         <DataTable.Title style={styles.table}>
-          <Icon source="phone" size={20} /> 전화번호
+          <Icon source="phone" /> 전화번호
         </DataTable.Title>
       </DataTable.Header>
 
@@ -41,6 +46,5 @@ const styles = StyleSheet.create({
   table: {
     justifyContent: 'center',
     alignItems: 'center',
-    // maxWidth: "90%",
   },
 });
