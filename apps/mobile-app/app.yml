@@ -1,31 +1,12 @@
 version: '3'
 
 services:
-  frontend:
-    build:
-      context: ./packages/front
+  mobile-app:
+    image: random-mobile:latest
+    container_name: random-mobile-app
     ports:
       - '3002:3002'
-    depends_on:
-      - backend
-  backend:
-    env_file: .env
-    build:
-      context: ./packages/back
-    ports:
-      - '3000:3000'
     environment:
       - KAKAO_RESTAPI_KEY=${KAKAO_RESTAPI_KEY}
-      - TYPEORM_URL=${TYPEORM_URL}
-      - TYPEORM_ENTITIES=${TYPEORM_ENTITIES}
-    depends_on:
-      - db
-  db:
-    env_file: .env
-    image: postgres:12.18-bullseye
-    ports:
-      - '5432:5432'
-    environment:
-      POSTGRES_USER: ${TYPEORM_USERNAME}
-      POSTGRES_PASSWORD: ${TYPEORM_PASSWORD}
-      POSTGRES_DB: ${TYPEORM_DATABASE}
+      - KAKAO_JAVASCRIPT_KEY=${KAKAO_RESTAPI_KEY}
+      - TZ=Asia/Seoul
