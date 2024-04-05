@@ -1,7 +1,12 @@
-# .gitlab-ci.yml
 stages:
   - build
   - deploy
+
+variables:
+  MAJOR_VERSION: '1'
+  MINOR_VERSION: '0'
+  PATCH_VERSION: '0'
+  IMAGE_TAG: '$MAJOR_VERSION.$MINOR_VERSION.$PATCH_VERSION'
 
 default:
   tags: # default tag for gitlab runner in verda stg env.
@@ -16,7 +21,14 @@ build-job:
   script:
     - echo "Compiling the code..."
     - echo "build"
-    - docker build -t back -f $CI_PROJECT_DIR/packages/back/Dockerfile .
+    # Increase the PATCH_VERSION by 1 for every build
+    - export PATCH_VERSION=$(curl --header "PRIVATE-TOKEN:$PRIVATE_TOKEN" "https://192.168.10.100:8100/api/v4/projects/47/variables/PATCH_VERSION" | jq -r '.value')
+    - PATCH_VERSION=$(expr $PATCH_VERSION + 1)
+    - curl --request PUT --header "PRIVATE-TOKEN:$PRIVATE_TOKEN" "https://192.168.10.100:8100/api/v4/projects/47/variables/PATCH_VERSION" --form "value=$PATCH_VERSION"
+    # Update the IMAGE_TAG with the new PATCH_VERSION
+    - export IMAGE_TAG="$MAJOR_VERSION.$MINOR_VERSION.$PATCH_VERSION"
+    # Tagging the Docker image with the updated version
+    - docker build -t back:$IMAGE_TAG -f $CI_PROJECT_DIR/apps/mobile-app/Dockerfile .
   only:
     - master
 
