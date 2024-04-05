@@ -1,13 +1,6 @@
 stages:
   - build
   - deploy
-
-variables:
-  MAJOR_VERSION: '1'
-  MINOR_VERSION: '0'
-  PATCH_VERSION: '0'
-  IMAGE_TAG: '$MAJOR_VERSION.$MINOR_VERSION.$PATCH_VERSION'
-
 default:
   tags: # default tag for gitlab runner in verda stg env.
     - develop
@@ -21,11 +14,8 @@ build-job:
   script:
     - echo "Compiling the code..."
     - echo "build"
-    # Increase the PATCH_VERSION by 1 for every build
     - export PATCH_VERSION=1
-    - export IMAGE_TAG="$MAJOR_VERSION.$MINOR_VERSION.$PATCH_VERSION"
-    # Tagging the Docker image with the updated version
-    - docker build -t back:$IMAGE_TAG -f $CI_PROJECT_DIR/packages/back/Dockerfile .
+    - docker build -t back:latest -f $CI_PROJECT_DIR/packages/back/Dockerfile .
   only:
     - master
 
