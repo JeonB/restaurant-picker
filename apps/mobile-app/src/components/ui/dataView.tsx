@@ -1,7 +1,7 @@
-import React from "react";
-import { Restaurant } from "types/Restaurant";
-import { Button, DataTable, Icon } from "react-native-paper";
-import { Linking, StyleSheet } from "react-native";
+import React from 'react';
+import { Restaurant } from '@_types/Restaurant';
+import { DataTable, Icon } from 'react-native-paper';
+import { StyleSheet } from 'react-native';
 
 export default function RestaurantInfo({
   info,
@@ -44,7 +44,7 @@ export default function RestaurantInfo({
 
 const styles = StyleSheet.create({
   table: {
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

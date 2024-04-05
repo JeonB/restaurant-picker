@@ -1,7 +1,7 @@
 import { Modal, View, StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
-import { RandomItemSelect } from './randomItemSelect';
-import { Restaurant } from 'types/Restaurant';
+import { RandomItemSelect } from '@_components/random/randomItemSelect';
+import { Restaurant } from '@_types/Restaurant';
 
 interface RandomPickerModalProps {
   visible: boolean;
