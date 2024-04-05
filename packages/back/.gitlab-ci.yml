@@ -22,8 +22,7 @@ build-job:
     - echo "Compiling the code..."
     - echo "build"
     # Increase the PATCH_VERSION by 1 for every build
-    - export PATCH_VERSION=$(($CI_PIPELINE_IID % 1000)) # Use the pipeline ID as the patch version
-    # Update the IMAGE_TAG with the new PATCH_VERSION
+    - export PATCH_VERSION=1
     - export IMAGE_TAG="$MAJOR_VERSION.$MINOR_VERSION.$PATCH_VERSION"
     # Tagging the Docker image with the updated version
     - docker build -t back:$IMAGE_TAG -f $CI_PROJECT_DIR/packages/back/Dockerfile .
