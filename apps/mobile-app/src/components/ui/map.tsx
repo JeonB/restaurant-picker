@@ -56,7 +56,7 @@ const Map: React.FC<MapProps> = ({ info }) => {
     </html>
 `;
     setHtml(newHtml);
-  }, [info]);
+  }, [info, appKey]);
 
   return (
     <WebView
