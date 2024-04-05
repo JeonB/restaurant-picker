@@ -1,25 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
+import { FiltersProps, FilterButtonProps } from "types/filter";
 
-interface FilterData {
-  label: string;
-  value: string;
-}
-
-interface FiltersProps {
-  data: FilterData[];
-  onValueChange?: (selectedValues: string[]) => void;
-}
-
-interface FilterButtonProps {
-  onPress: () => void;
-  text: string;
-  isSelected: boolean;
-}
-
-export const Filters: React.FC<FiltersProps> = ({ data, onValueChange }) => {
-  const [selectedIndices, setSelectedIndices] = useState<number[]>([]);
-
+const Filters: React.FC<FiltersProps> = ({ data, onValueChange }) => {
+  const [selectedIndices, setSelectedIndices] = useState<number[]>([0]);
   useEffect(() => {
     handleToggleSelection(0);
   }, []);
@@ -30,18 +14,17 @@ export const Filters: React.FC<FiltersProps> = ({ data, onValueChange }) => {
     if (index === 0) {
       newSelectedIndices = [0];
     } else {
-      if (newSelectedIndices.includes(0)) {
-        newSelectedIndices = newSelectedIndices.filter((idx) => idx !== 0);
-      }
-      if (newSelectedIndices.includes(index)) {
-        newSelectedIndices = newSelectedIndices.filter((idx) => idx !== index);
-      } else {
-        newSelectedIndices.push(index);
-      }
+      newSelectedIndices = newSelectedIndices.includes(0)
+        ? [index]
+        : newSelectedIndices.includes(index)
+        ? newSelectedIndices.filter((idx) => idx !== index)
+        : [...newSelectedIndices, index];
+
       if (newSelectedIndices.length === data.length - 1) {
         newSelectedIndices = [0];
       }
     }
+
     if (newSelectedIndices.length === 0) {
       newSelectedIndices = [0];
     }
@@ -91,3 +74,5 @@ const FilterButton: React.FC<FilterButtonProps> = ({
     </TouchableOpacity>
   );
 };
+
+export default Filters;

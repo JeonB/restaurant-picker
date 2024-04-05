@@ -3,41 +3,40 @@ import {
   StyleSheet,
   View,
   Image,
-  Linking,
   useWindowDimensions,
   Dimensions,
 } from 'react-native';
 import { Text } from '@rneui/themed';
 import { Button } from 'react-native-paper';
-import { RestaurantInfo } from '@_components/ui/restaurantInfo';
-import { CategoryButton } from '@_components/ui/categoryButton';
+import RestaurantInfo from '@_components/ui/dataView';
+import CategoryButton from '@_components/ui/categoryButton';
 import { RandomPickerModal } from '@_components/random/randomPickModal';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { getData } from '@_services/api';
 import { Restaurant } from '@_types/Restaurant';
+import { RootStackParamList } from '@_types/navigation';
+import Map from '@_components/ui/map';
 
 export function Main() {
   const { width, height } = useWindowDimensions();
   const [info, setInfo] = useState<Restaurant[]>([]);
   const [category, setCategory] = useState<string[]>(['']);
   const [showRandomPicker, setShowRandomPicker] = useState(false);
-  const [placeNames, setPlaceNames] = useState<string[]>([]);
   const [selectedInfo, setSelectedInfo] = useState<Restaurant | null>();
 
-  useEffect(() => {}, [category, info, placeNames, selectedInfo]);
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+
   const fetchData = async (categories: string[]) => {
     try {
       const randomCategory =
         categories[Math.floor(Math.random() * categories.length)];
 
-      //   const result = await randomPick(category);
       const result = await getData(randomCategory);
-      //   setInfo(result !== undefined ? [result] : []);
-      setInfo(result !== undefined ? result : []);
-      setPlaceNames(
-        result !== undefined && result.length > 0
-          ? result.map(restaurant => restaurant.place_name)
-          : [],
-      );
+      if (result) {
+        setInfo(result);
+        setShowRandomPicker(true);
+        setShowRandomPickButton(false);
+      }
     } catch (error) {
       console.error('Error occurred:', error);
     }
@@ -45,33 +44,45 @@ export function Main() {
 
   const [showRandomPickButton, setShowRandomPickButton] = useState(true);
 
-  const handleClick = async () => {
-    await fetchData(category);
-    setShowRandomPicker(true);
-    setShowRandomPickButton(false);
+  const handleRandomPickClick = async () => {
+    try {
+      await fetchData(category);
+    } catch (error) {
+      console.error('Error occurred:', error);
+    }
   };
 
-  const handleIconClick = (rowData: Restaurant) => {
-    Linking.openURL(rowData.place_url);
+  const handleDetailViewClick = () => {
+    if (selectedInfo) {
+      navigation.navigate('Detail', { url: selectedInfo.place_url });
+    }
+  };
+
+  const handleCategoryChange = (itemIndex: number) => {
+    setSelectedInfo(info[itemIndex]);
+    setTimeout(() => setShowRandomPicker(false), 600);
   };
 
   return (
     <View style={styles.container}>
-      <Image
-        source={{ uri: 'https://i.postimg.cc/rpJGytmg/image.png' }}
-        style={styles.image}
-      />
-      <View style={styles.categoryButton}>
-        <CategoryButton category={category} setCategory={setCategory} />
+      <View style={styles.mediaContainer}>
+        {selectedInfo ? (
+          <Map info={selectedInfo} />
+        ) : (
+          <Image
+            source={{ uri: 'https://i.postimg.cc/rpJGytmg/image.png' }}
+            style={{ width: 400, height: 400 }}
+          />
+        )}
       </View>
-      <View style={styles.infoView}>
-        <Text h4 h4Style={{ fontSize: 20, marginBottom: 10 }}>
-          {info.length > 0 ? selectedInfo?.place_name : ''}
-        </Text>
-        <Text>{info.length > 0 ? selectedInfo?.category_name : ''}</Text>
-      </View>
-      {info.length > 0 && selectedInfo && (
+      <CategoryButton category={category} setCategory={setCategory} />
+      {selectedInfo && (
         <View style={styles.infoView}>
+          <Text h4 h4Style={{ fontSize: 20, marginBottom: 10 }}>
+            {selectedInfo?.place_name || ''}
+          </Text>
+          <Text>{selectedInfo?.category_name || ''}</Text>
+
           <RestaurantInfo info={selectedInfo} />
         </View>
       )}
@@ -79,23 +90,19 @@ export function Main() {
         <Button
           style={styles.randomPickButton}
           icon="silverware-fork-knife"
-          onPress={handleClick}
-          //   onPress={() => setShowRandomPicker(true)}
+          onPress={handleRandomPickClick}
           textColor="#003366">
           Random Pick
         </Button>
       ) : (
         <View style={{ flexDirection: 'row' }}>
-          <Button
-            onPress={() => selectedInfo && handleIconClick(selectedInfo)}
-            style={styles.detailButton}>
+          <Button onPress={handleDetailViewClick} style={styles.detailButton}>
             <Text style={{ color: 'white' }}>식당 상세 정보</Text>
           </Button>
           <Button
-            style={styles.rechooseButton}
+            style={styles.reselectButton}
             icon="restart"
-            onPress={handleClick}
-            // onPress={() => setShowRandomPicker(true)}
+            onPress={handleRandomPickClick}
             mode="outlined"
             textColor="#003366">
             다시 선택
@@ -107,10 +114,7 @@ export function Main() {
           visible={showRandomPicker}
           info={info}
           onClose={() => setShowRandomPicker(false)}
-          onIndexChange={itemIndex => {
-            setSelectedInfo(info[itemIndex]);
-            setTimeout(() => setShowRandomPicker(false), 600);
-          }}
+          onIndexChange={handleCategoryChange}
         />
       )}
     </View>
@@ -121,14 +125,10 @@ const deviceWidth = Dimensions.get('window').width;
 const deviceHeight = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
-  categoryButton: {
-    alignItems: 'center',
-  },
   container: {
     flex: 1,
     padding: 50,
     alignItems: 'center',
-    maxWidth: '90%',
   },
   randomPickButton: {
     margin: 20,
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     backgroundColor: '#E8EAF6',
   },
-  rechooseButton: {
+  reselectButton: {
     borderColor: '#003366',
     margin: 15,
     borderRadius: 5,
@@ -150,9 +150,16 @@ const styles = StyleSheet.create({
     margin: 15,
   },
   infoView: {
-    width: deviceWidth > 430 ? 400 : 300,
+    width: deviceWidth > 430 ? 450 : 400,
     alignItems: 'center',
     margin: 5,
+  },
+  mediaContainer: {
+    width: 400,
+    height: 400,
+    position: 'relative',
+    alignItems: 'center',
+    margin: 10,
   },
   image: {
     width: deviceWidth > 430 ? '110%' : '120%',

@@ -1,6 +1,6 @@
 import { Restaurant } from '@_types/Restaurant';
 export async function getData(category: string) {
-  const baseUrl = 'http://192.168.10.186:3000/restaurants';
+  const baseUrl = 'http://192.168.10.100:3000/restaurants';
   try {
     const url = `${baseUrl}/${category}`;
     const response = await fetch(url, {
