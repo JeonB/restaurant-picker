@@ -22,9 +22,9 @@ build-job:
     - echo "Compiling the code..."
     - echo "build"
     # Increase the PATCH_VERSION by 1 for every build
-    - export PATCH_VERSION=$(curl --header "PRIVATE-TOKEN:$PRIVATE_TOKEN" "https://192.168.10.100:8100/api/v4/projects/47/variables/PATCH_VERSION" | jq -r '.value')
+    - export PATCH_VERSION=$(curl -k --header "PRIVATE-TOKEN:$PRIVATE_TOKEN" "https://192.168.10.100:8100/api/v4/projects/47/variables/PATCH_VERSION" | jq -r '.value')
     - PATCH_VERSION=$(expr $PATCH_VERSION + 1)
-    - curl --request PUT --header "PRIVATE-TOKEN:$PRIVATE_TOKEN" "https://192.168.10.100:8100/api/v4/projects/47/variables/PATCH_VERSION" --form "value=$PATCH_VERSION"
+    - curl -k --request PUT --header "PRIVATE-TOKEN:$PRIVATE_TOKEN" "https://192.168.10.100:8100/api/v4/projects/47/variables/PATCH_VERSION" --form "value=$PATCH_VERSION"
     # Update the IMAGE_TAG with the new PATCH_VERSION
     - export IMAGE_TAG="$MAJOR_VERSION.$MINOR_VERSION.$PATCH_VERSION"
     # Tagging the Docker image with the updated version
