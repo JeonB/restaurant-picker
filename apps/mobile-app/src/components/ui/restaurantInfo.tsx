@@ -4,7 +4,7 @@ import { Restaurant } from '@_types/Restaurant';
 import { Text } from '@rneui/themed';
 import { Button } from 'react-native-paper';
 
-export function RestaurantInfo({ info }: { info: Restaurant[] | undefined }) {
+export function RestaurantInfo({ info }: { info: Restaurant | undefined }) {
   const handleIconClick = (rowData: Restaurant) => {
     // React Native에서는 window.open 대신 Linking.openURL을 사용합니다.
     Linking.openURL(rowData.place_url);
