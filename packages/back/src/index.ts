@@ -26,7 +26,7 @@ server.register(swagger, {
 
     servers: [
       {
-        url: 'http://192.168.10.100:3000',
+        url: 'http://0.0.0.0:3000',
         description: 'Development server',
       },
     ],
@@ -88,6 +88,6 @@ server.register(require('@fastify/swagger-ui'), {
   transformSpecificationClone: true,
 });
 server.listen({
-  host: '192.168.10.100', //외부에서 접속 가능
+  host: '0.0.0.0', //외부에서 접속 가능
   port: 3000,
 });
