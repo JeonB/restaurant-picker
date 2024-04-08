@@ -8,11 +8,11 @@ import { DeepPartial, ILike } from 'typeorm';
 export default fp(async (server: FastifyInstance) => {
   // 루트
   server.get('/', async (request: FastifyRequest, reply: FastifyReply) => {
-    const restaurant = { hello: 'world!' };
+    const mainMessage = { MainServer: 'Hello world!' };
     reply
       .code(200)
       .header('Content-type', 'application/json; charset=utf-8')
-      .send(restaurant);
+      .send(mainMessage);
   });
 
   // DB내 음식점 리스트 응답
