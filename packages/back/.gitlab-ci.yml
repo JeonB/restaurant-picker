@@ -15,6 +15,8 @@ build-job:
     - echo "Compiling the code..."
     - echo "build"
     - docker build --rm -t back:latest -f $CI_PROJECT_DIR/packages/back/Dockerfile .
+  after_script:
+    - docker rmi $(docker images -f "dangling=true" -q) || true
   only:
     - master
 
