@@ -10,8 +10,6 @@ services:
 
 build-job:
   stage: build
-  tags:
-    - develop
   script:
     - echo "Compiling the code..."
     - echo "build"
@@ -21,8 +19,6 @@ build-job:
 
 deploy-job:
   stage: deploy
-  tags:
-    - develop
   script:
     - echo "Start deploy ..."
     - cd $CI_PROJECT_DIR/apps/mobile-app

@@ -8,5 +8,5 @@ services:
       - '3002:3002'
     environment:
       - KAKAO_RESTAPI_KEY=${KAKAO_RESTAPI_KEY}
-      - KAKAO_JAVASCRIPT_KEY=${KAKAO_RESTAPI_KEY}
+      - KAKAO_JAVASCRIPT_KEY=${KAKAO_JAVASCRIPT_KEY}
       - TZ=Asia/Seoul
