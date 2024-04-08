@@ -2,7 +2,7 @@ version: '3'
 
 services:
   backend:
-    image: back:latest
+    image: back
     container_name: random-picker-backend
     ports:
       - '3000:3000'

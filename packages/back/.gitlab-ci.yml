@@ -15,7 +15,7 @@ build-job:
     - echo "Compiling the code..."
     - echo "build"
     - export PATCH_VERSION=1
-    - docker build -t back:latest -f $CI_PROJECT_DIR/packages/back/Dockerfile .
+    - docker build -t back:1.0.0 -f $CI_PROJECT_DIR/packages/back/Dockerfile .
   only:
     - master
 
