@@ -14,9 +14,7 @@ build-job:
   script:
     - echo "Compiling the code..."
     - echo "build"
-    - export PATCH_VERSION=1
-    - docker build -t back:latest -f $CI_PROJECT_DIR/packages/back/Dockerfile .
-    - docker rmi $(docker images -f "dangling=true" -q)
+    - docker build --rm -t back:latest -f $CI_PROJECT_DIR/packages/back/Dockerfile .
   only:
     - master
 
