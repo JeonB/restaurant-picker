@@ -2,7 +2,7 @@ version: '3'
 
 services:
   backend:
-    image: back
+    image: back:latest
     container_name: random-picker-backend
     ports:
       - '3000:3000'
@@ -16,7 +16,7 @@ services:
   db:
     image: postgres:12.18-bullseye
     ports:
-      - '5434:5432' # 5432 포트가 이미 사용중이라 5434로 변경
+      - '5434:5432'
     environment:
       - POSTGRES_USER=${TYPEORM_USERNAME}
       - POSTGRES_PASSWORD=${TYPEORM_PASSWORD}

@@ -5,40 +5,25 @@ stages:
 default:
   tags:
     - develop
-
 services:
-  - docker:19.03.13-dind
+  - docker:24.0.9-dind
 
 build-job:
   stage: build
-  tags:
-    - develop
   script:
     - echo "Compiling the code..."
     - echo "build"
-    - docker build -t mobile-app .
+    - docker build -t random-mobile:latest -f $CI_PROJECT_DIR/apps/mobile-app/Dockerfile .
   only:
-    - develop
+    - master
 
 deploy-job:
   stage: deploy
-  tags:
-    - develop
   script:
-    - echo "Start webpack ..."
+    - echo "Start deploy ..."
+    - cd $CI_PROJECT_DIR/apps/mobile-app
     - docker-compose -f ./app.yml up -d
+  after_script:
+    - docker rmi $(docker images -f "dangling=true" -q) || true
   only:
-    - develop
-
-deploy-qa:
-  stage: deploy
-  script:
-    - echo "[QA]running build start"
-    - docker build -t qa-mobile-app .
-    - echo "[QA] deploy start"
-    - docker-compose -f ./app-qa.yml up -d
-    - echo "[QA]deploy ended"
-  tags:
-    - qa
-  only:
-    - develop-qa
+    - master
