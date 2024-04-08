@@ -6,7 +6,7 @@ default:
     - develop
 services:
   - docker:24.0.9-dind
-# 진짜 찐막 dangling image 삭제 테스트
+
 build-job:
   stage: build
   tags:
