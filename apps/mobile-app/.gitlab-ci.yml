@@ -2,14 +2,8 @@ stages:
   - build
   - deploy
 
-variables:
-  MAJOR_VERSION: '1'
-  MINOR_VERSION: '0'
-  PATCH_VERSION: '0'
-  IMAGE_TAG: '$MAJOR_VERSION.$MINOR_VERSION.$PATCH_VERSION'
-
 default:
-  tags: # default tag for gitlab runner in verda stg env.
+  tags:
     - develop
 services:
   - docker:24.0.9-dind
@@ -33,5 +27,7 @@ deploy-job:
     - echo "Start deploy ..."
     - cd $CI_PROJECT_DIR/apps/mobile-app
     - docker-compose -f ./app.yml up -d
+  after_script:
+    - docker rmi $(docker images -f "dangling=true" -q) || true
   only:
     - master
