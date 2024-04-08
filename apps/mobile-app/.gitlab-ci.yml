@@ -21,7 +21,7 @@ build-job:
   script:
     - echo "Compiling the code..."
     - echo "build"
-    - docker build -t random-mobile:$latest -f $CI_PROJECT_DIR/apps/mobile-app/Dockerfile .
+    - docker build -t random-mobile:latest -f $CI_PROJECT_DIR/apps/mobile-app/Dockerfile .
   only:
     - master
 
