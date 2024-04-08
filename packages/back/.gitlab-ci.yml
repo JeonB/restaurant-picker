@@ -6,7 +6,7 @@ default:
     - develop
 services:
   - docker:24.0.9-dind
-# test
+# test 구라면 주거ㄴㄴㅇㄴㄴ
 build-job:
   stage: build
   tags:
