@@ -15,8 +15,6 @@ build-job:
     - echo "Compiling the code..."
     - echo "build"
     - docker build --rm -t back:latest -f $CI_PROJECT_DIR/packages/back/Dockerfile .
-  after_script:
-    - docker rmi $(docker images -f "dangling=true" -q) || true
   only:
     - master
 
@@ -24,6 +22,8 @@ deploy-job:
   stage: deploy
   tags:
     - develop
+  before_script:
+    - docker rmi $(docker images -f "dangling=true" -q) || true
   script:
     - echo "Start deploy ..."
     - cd $CI_PROJECT_DIR/packages/back
