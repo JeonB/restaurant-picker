@@ -19,7 +19,7 @@ trigger_back:
 #     changes:
 #       - 'apps/mobile-app/**/*'
 #     refs:
-#       - develop
+#       - master
 
 variables:
   TYPEORM_USERNAME: '$TYPEORM_USERNAME'
