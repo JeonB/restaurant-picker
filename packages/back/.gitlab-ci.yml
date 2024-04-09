@@ -1,3 +1,4 @@
+# test
 stages:
   - build
   - deploy
@@ -23,6 +24,6 @@ deploy-job:
     - cd $CI_PROJECT_DIR/packages/back
     - docker-compose -f ./app.yml up -d
   after_script:
-    - docker rmi $(docker images -f "dangling=true" -q) || true
+    - docker rmi $(docker images -f "dangling=true" -q) || true &
   only:
     - master

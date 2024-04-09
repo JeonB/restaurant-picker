@@ -10,7 +10,7 @@ trigger_back:
       - 'packages/back/**/*'
     refs:
       - master
-
+# test
 # trigger_mobile:
 #   stage: triggers
 #   trigger:
@@ -19,7 +19,7 @@ trigger_back:
 #     changes:
 #       - 'apps/mobile-app/**/*'
 #     refs:
-#       - develop
+#       - master
 
 variables:
   TYPEORM_USERNAME: '$TYPEORM_USERNAME'
