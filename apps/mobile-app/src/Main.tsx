@@ -13,25 +13,54 @@ import CategoryButton from '@_components/ui/categoryButton';
 import { RandomPickerModal } from '@_components/random/randomPickModal';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { getData } from '@_services/api';
+import { handleData } from '@_services/keyword_search';
 import { Restaurant } from '@_types/Restaurant';
 import { RootStackParamList } from '@_types/navigation';
 import Map from '@_components/ui/map';
-
+import { QueryParamsType } from '@_types/queryParams';
+import Geolocation from '@react-native-community/geolocation';
 export function Main() {
   const { width, height } = useWindowDimensions();
   const [info, setInfo] = useState<Restaurant[]>([]);
   const [category, setCategory] = useState<string[]>(['']);
   const [showRandomPicker, setShowRandomPicker] = useState(false);
   const [selectedInfo, setSelectedInfo] = useState<Restaurant | null>();
-
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+
+  const [state, setState] = useState<QueryParamsType>();
+  let queryParams: QueryParamsType = {
+    query: '',
+    x: '',
+    y: '',
+    category_group_code: 'FD6',
+    radius: 0,
+    size: 15,
+    page: 0,
+  };
+
+  useEffect(() => {
+    Geolocation.getCurrentPosition(
+      position => {
+        const { latitude, longitude } = position.coords;
+        queryParams = {
+          ...queryParams,
+          x: longitude.toString(),
+          y: latitude.toString(),
+        };
+        setState(queryParams);
+      },
+      error => console.log(error),
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
+    );
+  }, []);
 
   const fetchData = async (categories: string[]) => {
     try {
       const randomCategory =
         categories[Math.floor(Math.random() * categories.length)];
-
-      const result = await getData(randomCategory);
+      queryParams.query = randomCategory;
+      setState(queryParams);
+      const result = await handleData(state || queryParams); // Check if state is defined, otherwise use queryParams
       if (result) {
         setInfo(result);
         setShowRandomPicker(true);

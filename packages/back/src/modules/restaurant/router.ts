@@ -8,7 +8,7 @@ import { DeepPartial, ILike } from 'typeorm';
 export default fp(async (server: FastifyInstance) => {
   // 루트
   server.get('/', async (request: FastifyRequest, reply: FastifyReply) => {
-    const mainMessage = { MainServer: 'Hello world!123123' };
+    const mainMessage = { MainServer: 'Hello world!' };
     reply
       .code(200)
       .header('Content-type', 'application/json; charset=utf-8')
