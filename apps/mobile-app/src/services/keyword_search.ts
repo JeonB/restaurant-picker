@@ -1,9 +1,10 @@
 import { QueryParamsType } from '@_types/queryParams';
-
-require('dotenv').config();
+import { Restaurant } from '@_types/Restaurant';
+import { KAKAO_RESTAPI_KEY } from '@env';
+// require('dotenv').config();
 const baseUrl = 'https://dapi.kakao.com/v2/local/search/keyword';
-const restAPIkey = process.env.KAKAO_RESTAPI_KEY;
-let allData: { [key: string]: string | number }[] = []; // 전체 데이터를 저장할 배열
+const restAPIkey = KAKAO_RESTAPI_KEY;
+let allData: Restaurant[] = []; // 전체 데이터를 저장할 배열
 
 // Kakao Local API를 호출하여 데이터를 가져오는 함수
 async function fetchData(params: QueryParamsType) {
@@ -16,7 +17,6 @@ async function fetchData(params: QueryParamsType) {
     size: params.size,
     page: params.page,
   };
-
   const queryString = Object.keys(queryParams)
     .map(
       key =>
@@ -34,12 +34,12 @@ async function fetchData(params: QueryParamsType) {
   if (!response.ok) {
     throw new Error('Response 실패');
   }
-
   const data = await response.json();
   return data;
 }
 
 async function handleData(params: QueryParamsType) {
+  console.log('handleData:', params);
   params.page = 1;
   try {
     let data = await fetchData({
@@ -51,10 +51,10 @@ async function handleData(params: QueryParamsType) {
       size: params.size,
       page: params.page,
     });
-
+    console.log(data);
     // Kakao Local API는 최대 3페이지까지(45개) 데이터 제공
     while (params.page < 4) {
-      data.documents.forEach((document: { [key: string]: string | number }) => {
+      data.documents.forEach((document: Restaurant) => {
         allData.push(document);
       });
       if (data.meta.is_end) break;

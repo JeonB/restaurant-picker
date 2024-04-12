@@ -18,7 +18,8 @@ import { Restaurant } from '@_types/Restaurant';
 import { RootStackParamList } from '@_types/navigation';
 import Map from '@_components/ui/map';
 import { QueryParamsType } from '@_types/queryParams';
-import Geolocation from '@react-native-community/geolocation';
+import * as Location from 'expo-location';
+
 export function Main() {
   const { width, height } = useWindowDimensions();
   const [info, setInfo] = useState<Restaurant[]>([]);
@@ -33,25 +34,34 @@ export function Main() {
     x: '',
     y: '',
     category_group_code: 'FD6',
-    radius: 0,
+    radius: 100,
     size: 15,
     page: 0,
   };
-
   useEffect(() => {
-    Geolocation.getCurrentPosition(
-      position => {
-        const { latitude, longitude } = position.coords;
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      console.log('status:', status);
+      if (status !== 'granted') {
+        console.error('Permission to access location was denied');
+        return;
+      }
+      try {
+        let location = await Location.getCurrentPositionAsync();
+        console.log('location:', location);
+        console.warn('location:', location);
+        console.error('location:', location);
+        const { latitude, longitude } = location.coords;
         queryParams = {
           ...queryParams,
           x: longitude.toString(),
           y: latitude.toString(),
         };
         setState(queryParams);
-      },
-      error => console.log(error),
-      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
-    );
+      } catch (error) {
+        console.error('Error getting location:', error);
+      }
+    })();
   }, []);
 
   const fetchData = async (categories: string[]) => {
@@ -59,8 +69,9 @@ export function Main() {
       const randomCategory =
         categories[Math.floor(Math.random() * categories.length)];
       queryParams.query = randomCategory;
+      console.log('queryParams:', queryParams);
       setState(queryParams);
-      const result = await handleData(state || queryParams); // Check if state is defined, otherwise use queryParams
+      const result: Restaurant[] = await handleData(queryParams);
       if (result) {
         setInfo(result);
         setShowRandomPicker(true);
@@ -75,6 +86,7 @@ export function Main() {
 
   const handleRandomPickClick = async () => {
     try {
+      console.log('category:', category);
       await fetchData(category);
     } catch (error) {
       console.error('Error occurred:', error);
