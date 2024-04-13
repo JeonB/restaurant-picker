@@ -61,7 +61,7 @@ export function Main() {
         console.error('Error getting location:', error);
       }
     })();
-  }, []);
+  }, [state]);
 
   useEffect(() => {
     const fetch = async () => {
@@ -83,7 +83,7 @@ export function Main() {
       const result: Restaurant[] = await handleData(state);
       if (result) {
         setInfo(result);
-        setShowRandomPicker(true);
+        // setShowRandomPicker(true);
         setShowRandomPickButton(false);
       }
     } catch (error) {
@@ -96,6 +96,7 @@ export function Main() {
   const handleRandomPickClick = async () => {
     try {
       await fetchData(category);
+      setShowRandomPicker(true);
     } catch (error) {
       console.error('Error occurred:', error);
     }
