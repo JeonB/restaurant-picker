@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   StyleSheet,
   View,
@@ -28,29 +28,28 @@ export function Main() {
   const [selectedInfo, setSelectedInfo] = useState<Restaurant | null>();
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
-  const [state, setState] = useState<QueryParamsType>();
   let queryParams: QueryParamsType = {
-    query: '',
+    query: '맛집',
     x: '',
     y: '',
     category_group_code: 'FD6',
     radius: 100,
     size: 15,
-    page: 0,
+    page: 1,
   };
+  const [state, setState] = useState<QueryParamsType>(queryParams);
+
   useEffect(() => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
-      console.log('status:', status);
       if (status !== 'granted') {
         console.error('Permission to access location was denied');
         return;
       }
       try {
-        let location = await Location.getCurrentPositionAsync();
-        console.log('location:', location);
-        console.warn('location:', location);
-        console.error('location:', location);
+        let location = await Location.getCurrentPositionAsync({
+          accuracy: Location.Accuracy.BestForNavigation,
+        });
         const { latitude, longitude } = location.coords;
         queryParams = {
           ...queryParams,
@@ -64,14 +63,24 @@ export function Main() {
     })();
   }, []);
 
+  useEffect(() => {
+    const fetch = async () => {
+      try {
+        await fetchData(category);
+      } catch (error) {
+        console.error('Error occurred:', error);
+      }
+    };
+
+    fetch();
+  }, [category]);
   const fetchData = async (categories: string[]) => {
     try {
       const randomCategory =
         categories[Math.floor(Math.random() * categories.length)];
-      queryParams.query = randomCategory;
-      console.log('queryParams:', queryParams);
+      queryParams = { ...state, query: randomCategory };
       setState(queryParams);
-      const result: Restaurant[] = await handleData(queryParams);
+      const result: Restaurant[] = await handleData(state);
       if (result) {
         setInfo(result);
         setShowRandomPicker(true);
@@ -86,7 +95,6 @@ export function Main() {
 
   const handleRandomPickClick = async () => {
     try {
-      console.log('category:', category);
       await fetchData(category);
     } catch (error) {
       console.error('Error occurred:', error);
@@ -101,7 +109,7 @@ export function Main() {
 
   const handleCategoryChange = (itemIndex: number) => {
     setSelectedInfo(info[itemIndex]);
-    setTimeout(() => setShowRandomPicker(false), 600);
+    setTimeout(() => setShowRandomPicker(false), 200);
   };
 
   return (
