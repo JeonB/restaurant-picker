@@ -7,4 +7,6 @@ export interface Restaurant {
   place_url: string;
   created_at: string;
   updated_at: string;
+  x: string;
+  y: string;
 }

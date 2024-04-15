@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { KAKAO_JAVASCRIPT_KEY } from '@env';
-import { Restaurant } from 'types/Restaurant';
+import { Restaurant } from '@_types/Restaurant';
 
 interface MapProps {
   info: Restaurant;
