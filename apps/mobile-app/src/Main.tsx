@@ -1,24 +1,22 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   StyleSheet,
   View,
   Image,
   useWindowDimensions,
   Dimensions,
+  Alert,
 } from 'react-native';
-import { Text } from '@rneui/themed';
+import { Text, Slider, Icon } from '@rneui/themed';
 import { Button } from 'react-native-paper';
 import RestaurantInfo from '@_components/ui/dataView';
 import CategoryButton from '@_components/ui/categoryButton';
 import { RandomPickerModal } from '@_components/random/randomPickModal';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
-import { getData } from '@_services/api';
-import { handleData } from '@_services/keyword_search';
+import { fetchData } from '@_services/api';
 import { Restaurant } from '@_types/Restaurant';
 import { RootStackParamList } from '@_types/navigation';
 import Map from '@_components/ui/map';
-import { QueryParamsType } from '@_types/queryParams';
-import * as Location from 'expo-location';
 
 export function Main() {
   const { width, height } = useWindowDimensions();
@@ -26,77 +24,14 @@ export function Main() {
   const [category, setCategory] = useState<string[]>(['']);
   const [showRandomPicker, setShowRandomPicker] = useState(false);
   const [selectedInfo, setSelectedInfo] = useState<Restaurant | null>();
+  const [distanceRange, setDistanceRange] = useState(30);
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-
-  let queryParams: QueryParamsType = {
-    query: '맛집',
-    x: '',
-    y: '',
-    category_group_code: 'FD6',
-    radius: 100,
-    size: 15,
-    page: 1,
-  };
-  const [state, setState] = useState<QueryParamsType>(queryParams);
-
-  useEffect(() => {
-    (async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== 'granted') {
-        console.error('Permission to access location was denied');
-        return;
-      }
-      try {
-        let location = await Location.getCurrentPositionAsync({
-          accuracy: Location.Accuracy.BestForNavigation,
-        });
-        const { latitude, longitude } = location.coords;
-        queryParams = {
-          ...queryParams,
-          x: longitude.toString(),
-          y: latitude.toString(),
-        };
-        setState(queryParams);
-      } catch (error) {
-        console.error('Error getting location:', error);
-      }
-    })();
-  }, [state]);
-
-  useEffect(() => {
-    const fetch = async () => {
-      try {
-        await fetchData(category);
-      } catch (error) {
-        console.error('Error occurred:', error);
-      }
-    };
-
-    fetch();
-  }, [category]);
-  const fetchData = async (categories: string[]) => {
-    try {
-      const randomCategory =
-        categories[Math.floor(Math.random() * categories.length)];
-      queryParams = { ...state, query: randomCategory };
-      setState(queryParams);
-      const result: Restaurant[] = await handleData(state);
-      if (result) {
-        setInfo(result);
-        // setShowRandomPicker(true);
-        setShowRandomPickButton(false);
-      }
-    } catch (error) {
-      console.error('Error occurred:', error);
-    }
-  };
 
   const [showRandomPickButton, setShowRandomPickButton] = useState(true);
 
   const handleRandomPickClick = async () => {
     try {
-      await fetchData(category);
-      setShowRandomPicker(true);
+      await handleData(category);
     } catch (error) {
       console.error('Error occurred:', error);
     }
@@ -110,8 +45,45 @@ export function Main() {
 
   const handleCategoryChange = (itemIndex: number) => {
     setSelectedInfo(info[itemIndex]);
-    setTimeout(() => setShowRandomPicker(false), 200);
+    setTimeout(() => setShowRandomPicker(false), 600);
   };
+
+  let allData: Restaurant[] = [];
+
+  async function handleData(categories: string[]) {
+    let page = 1;
+    try {
+      if (categories[0] === '') {
+        categories = ['한식', '중식', '일식', '양식', '분식'];
+      }
+      const randomCategory =
+        categories[Math.floor(Math.random() * categories.length)];
+      let data = await fetchData(randomCategory, page, distanceRange);
+
+      // Kakao Local API는 최대 3페이지까지(45개) 데이터 제공
+      while (page < 4) {
+        data.documents.forEach((document: Restaurant) => {
+          allData.push(document);
+          // cnt++;
+        });
+        if (data.meta.is_end) break;
+        page++;
+        data = await fetchData(randomCategory, page, distanceRange);
+      }
+    } catch (error) {
+      console.error('에러 발생:', error);
+    }
+
+    if (allData.length === 0) {
+      Alert.alert('주변에 식당이 없습니다. 거리 범위를 조정해주세요.');
+      return;
+    }
+
+    setInfo(allData);
+    setShowRandomPicker(true);
+    setShowRandomPickButton(false);
+    return allData;
+  }
 
   return (
     <View style={styles.container}>
@@ -126,6 +98,29 @@ export function Main() {
         )}
       </View>
       <CategoryButton category={category} setCategory={setCategory} />
+      <View style={[styles.contentView]}>
+        <Slider
+          value={distanceRange}
+          onValueChange={setDistanceRange}
+          maximumValue={300}
+          minimumValue={30}
+          step={10}
+          allowTouchTrack
+          trackStyle={{ height: 5, backgroundColor: 'transparent' }}
+          thumbStyle={{ height: 20, width: 20, backgroundColor: 'transparent' }}
+          thumbProps={{
+            children: (
+              <Icon
+                type="font-awesome"
+                size={15}
+                reverse
+                containerStyle={{ bottom: 15, right: 10 }}
+              />
+            ),
+          }}
+        />
+        <Text>{distanceRange}m 이내</Text>
+      </View>
       {selectedInfo && (
         <View style={styles.infoView}>
           <Text h4 h4Style={{ fontSize: 20, marginBottom: 10 }}>
@@ -215,5 +210,11 @@ const styles = StyleSheet.create({
     width: deviceWidth > 430 ? '110%' : '120%',
     height: 'auto',
     aspectRatio: 1,
+  },
+  contentView: {
+    padding: 10,
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'stretch',
   },
 });
