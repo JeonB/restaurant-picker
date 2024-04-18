@@ -19,7 +19,6 @@ import { RootStackParamList } from '@_types/navigation';
 import Map from '@_components/ui/map';
 
 export function Main() {
-  const { width, height } = useWindowDimensions();
   const [info, setInfo] = useState<Restaurant[]>([]);
   const [category, setCategory] = useState<string[]>(['']);
   const [showRandomPicker, setShowRandomPicker] = useState(false);
@@ -93,7 +92,7 @@ export function Main() {
         ) : (
           <Image
             source={{ uri: 'https://i.postimg.cc/rpJGytmg/image.png' }}
-            style={{ width: 400, height: 400 }}
+            style={{ width: '100%', height: '100%' }}
           />
         )}
       </View>
@@ -200,10 +199,11 @@ const styles = StyleSheet.create({
     margin: 5,
   },
   mediaContainer: {
-    width: 400,
-    height: 400,
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').width * 0.7,
     position: 'relative',
     alignItems: 'center',
+    padding: 0,
     margin: 10,
   },
   image: {

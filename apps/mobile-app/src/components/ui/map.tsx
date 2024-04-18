@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { KAKAO_JAVASCRIPT_KEY } from '@env';
 import { Restaurant } from '@_types/Restaurant';
@@ -17,10 +17,26 @@ const Map: React.FC<MapProps> = ({ info }) => {
     <html>
         <head>
             <meta name="viewport" content="width=device-width, initial-scale=1">
+            <style>
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100%;
+                margin: 0;
+                padding: 0; 
+            }
+            #map {
+                width: 100%;
+                height: 100%;
+                padding: 0;
+                margin: 0;
+            }
+        </style>
             <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=${appKey}&libraries=services,clusterer,drawing"></script>
         </head>
         <body >
-            <div id="map" style="width:100%;height:100%;"></div>
+            <div id="map" ></div>
             <script type="text/javascript">
                 (function () {
                     const container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
@@ -71,7 +87,12 @@ export default Map;
 
 const styles = StyleSheet.create({
   container: {
-    width: 400,
-    height: 400,
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
+    padding: 0,
+    margin: 0,
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
