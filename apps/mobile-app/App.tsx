@@ -5,7 +5,7 @@ import { Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { DetailView } from '@_components/ui/detailView';
-
+import Constants from 'expo-constants';
 // Text 적용
 (Text as any).defaultProps = (Text as any).defaultProps || {};
 (Text as any).defaultProps.allowFontScaling = false;
@@ -24,8 +24,14 @@ const App: React.FC = () => {
     </NavigationContainer>
   );
 };
+
+let AppEntryPoint = App;
+
+if (Constants.expoConfig.extra.storybookEnabled === 'true') {
+  AppEntryPoint = require('./.storybook').default;
+}
 const styles = StyleSheet.create({
   container: {},
 });
 
-export default App;
+export default AppEntryPoint;
