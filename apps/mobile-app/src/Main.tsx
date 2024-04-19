@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react'
 import {
   StyleSheet,
   View,
@@ -6,82 +6,82 @@ import {
   useWindowDimensions,
   Dimensions,
   Alert,
-} from 'react-native';
-import { Text, Slider, Icon } from '@rneui/themed';
-import { Button } from 'react-native-paper';
-import RestaurantInfo from '@_components/ui/dataView';
-import CategoryButton from '@_components/ui/categoryButton';
-import { RandomPickerModal } from '@_components/random/randomPickModal';
-import { useNavigation, NavigationProp } from '@react-navigation/native';
-import { fetchData } from '@_services/api';
-import { Restaurant } from '@_types/Restaurant';
-import { RootStackParamList } from '@_types/navigation';
-import Map from '@_components/ui/map';
+} from 'react-native'
+import { Text, Slider, Icon } from '@rneui/themed'
+import { Button } from 'react-native-paper'
+import RestaurantInfo from '@_components/ui/dataView'
+import CategoryButton from '@_components/ui/categoryButton'
+import { RandomPickerModal } from '@_components/random/randomPickModal'
+import { useNavigation, NavigationProp } from '@react-navigation/native'
+import { fetchData } from '@_services/api'
+import { Restaurant } from '@_types/Restaurant'
+import { RootStackParamList } from '@_types/navigation'
+import Map from '@_components/ui/map'
 
 export function Main() {
-  const [info, setInfo] = useState<Restaurant[]>([]);
-  const [category, setCategory] = useState<string[]>(['']);
-  const [showRandomPicker, setShowRandomPicker] = useState(false);
-  const [selectedInfo, setSelectedInfo] = useState<Restaurant | null>();
-  const [distanceRange, setDistanceRange] = useState(30);
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const [info, setInfo] = useState<Restaurant[]>([])
+  const [category, setCategory] = useState<string[]>([''])
+  const [showRandomPicker, setShowRandomPicker] = useState(false)
+  const [selectedInfo, setSelectedInfo] = useState<Restaurant | null>()
+  const [distanceRange, setDistanceRange] = useState(30)
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>()
 
-  const [showRandomPickButton, setShowRandomPickButton] = useState(true);
+  const [showRandomPickButton, setShowRandomPickButton] = useState(true)
 
   const handleRandomPickClick = async () => {
     try {
-      await handleData(category);
+      await handleData(category)
     } catch (error) {
-      console.error('Error occurred:', error);
+      console.error('Error occurred:', error)
     }
-  };
+  }
 
   const handleDetailViewClick = () => {
     if (selectedInfo) {
-      navigation.navigate('Detail', { url: selectedInfo.place_url });
+      navigation.navigate('Detail', { url: selectedInfo.place_url })
     }
-  };
+  }
 
   const handleCategoryChange = (itemIndex: number) => {
-    setSelectedInfo(info[itemIndex]);
-    setTimeout(() => setShowRandomPicker(false), 600);
-  };
+    setSelectedInfo(info[itemIndex])
+    setTimeout(() => setShowRandomPicker(false), 600)
+  }
 
-  let allData: Restaurant[] = [];
+  const allData: Restaurant[] = []
 
   async function handleData(categories: string[]) {
-    let page = 1;
+    let page = 1
     try {
       if (categories[0] === '') {
-        categories = ['한식', '중식', '일식', '양식', '분식'];
+        categories = ['한식', '중식', '일식', '양식', '분식']
       }
       const randomCategory =
-        categories[Math.floor(Math.random() * categories.length)];
-      let data = await fetchData(randomCategory, page, distanceRange);
+        categories[Math.floor(Math.random() * categories.length)]
+      let data = await fetchData(randomCategory, page, distanceRange)
 
       // Kakao Local API는 최대 3페이지까지(45개) 데이터 제공
       while (page < 4) {
         data.documents.forEach((document: Restaurant) => {
-          allData.push(document);
+          allData.push(document)
           // cnt++;
-        });
-        if (data.meta.is_end) break;
-        page++;
-        data = await fetchData(randomCategory, page, distanceRange);
+        })
+        if (data.meta.is_end) break
+        page++
+        data = await fetchData(randomCategory, page, distanceRange)
       }
     } catch (error) {
-      console.error('에러 발생:', error);
+      console.error('에러 발생:', error)
     }
 
     if (allData.length === 0) {
-      Alert.alert('주변에 식당이 없습니다. 거리 범위를 조정해주세요.');
-      return;
+      Alert.alert('주변에 식당이 없습니다. 거리 범위를 조정해주세요.')
+      return
     }
 
-    setInfo(allData);
-    setShowRandomPicker(true);
-    setShowRandomPickButton(false);
-    return allData;
+    setInfo(allData)
+    setShowRandomPicker(true)
+    setShowRandomPickButton(false)
+    return allData
   }
 
   return (
@@ -114,6 +114,7 @@ export function Main() {
                 size={15}
                 reverse
                 containerStyle={{ bottom: 15, right: 10 }}
+                name={''}
               />
             ),
           }}
@@ -162,11 +163,11 @@ export function Main() {
         />
       )}
     </View>
-  );
+  )
 }
 
-const deviceWidth = Dimensions.get('window').width;
-const deviceHeight = Dimensions.get('window').height;
+const deviceWidth = Dimensions.get('window').width
+const deviceHeight = Dimensions.get('window').height
 
 const styles = StyleSheet.create({
   container: {
@@ -217,4 +218,4 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'stretch',
   },
-});
+})
